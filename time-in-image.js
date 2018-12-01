@@ -5,6 +5,7 @@ const tzlookup = require("tz-lookup");
 const moment = require("moment-timezone");
 
 const make8x8ImageBufferWith4Colors = c=>{
+	console.log("Try image 2");
 	return new Promise((resolve,reject)=>{
 		let imageData = [];
 		for (var i=0; i<64; i++) {
@@ -34,6 +35,7 @@ const make8x8ImageBufferWith4Colors = c=>{
 }
 
 const makeTimeImageBuffer = (time)=>{ // 24,60,60
+	console.log("Try image");
 	return new Promise((resolve,reject)=>{
 		let h = ((time[0])/24)*255;
 		let m = ((time[1])/60)*255;
@@ -56,6 +58,7 @@ const generateCharacters = (amount)=>{
 	for (var i=0; i<amount; i++) {
 		out+=choice[Math.floor(Math.random()*choice.length)];
 	}
+	console.log("gen char");
 	return out;
 }
 
@@ -67,8 +70,9 @@ setInterval(()=>{
 
 const TimeInImage = function (app,path) {
 	this.onRequest = ()=>{};
-
+	console.log("Time in image called");
 	app.get(path+"/:random", (req,res)=>{
+		console.log("Try get");
 		this.onRequest(req);
 
 		res.header({"Content-Type": "image/png"});
@@ -86,6 +90,7 @@ const TimeInImage = function (app,path) {
 		}
 
 		request.post({
+			console.log("Try post");
 			url: "https://www.iplocation.net",
 			form: { query: ip },
 			headers: { referer: "https://www.iplocation.net" }
@@ -121,6 +126,7 @@ const TimeInImage = function (app,path) {
 	});
 
 	app.get(path, (req,res)=>{
+		console.log("Try get 2");
 		res.redirect(path+"/"+generateCharacters(8)+".png");
 	});
 }
