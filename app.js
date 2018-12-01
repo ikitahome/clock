@@ -17,5 +17,5 @@ timeInImage.onRequest = req=>{
 }
 
 app.listen(settings.port, ()=>{
-	console.log("Web server open at *:"+settings.port+settings.path);
+	console.log("Web server open at *:"+(process.env.PORT || settings.port)+settings.path);
 });
