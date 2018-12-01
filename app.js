@@ -16,6 +16,6 @@ timeInImage.onRequest = req=>{
 	console.log(ip+=" requested the time");
 }
 
-app.listen(settings.port, ()=>{
+app.listen((process.env.PORT || settings.port), ()=>{
 	console.log("Web server open at *:"+(process.env.PORT || settings.port)+settings.path);
 });
