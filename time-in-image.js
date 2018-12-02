@@ -23,13 +23,114 @@ const make8x8ImageBufferWith4Colors = c=>{
 			]);
 		}
 
-		new Jimp({
-			width: 8,
-			height: 8,
-			data: Buffer.from(imageData)
-		}, (err,image)=>{
-			resolve(image.getBufferAsync(Jimp.MIME_PNG));
+		//https://api.vrchat.cloud/api/1/worlds/wrld_9727a095-38e9-4686-8dd8-dad8b6bc01af
+		
+		
+		
+		
+		
+// #!/usr/bin/env python3
+
+// import json
+// import requests
+// from requests.auth import HTTPBasicAuth
+
+// API    = "https://api.vrchat.cloud/api/1"
+// APIKEY = "JlE5Jldo5Jibnk5O5hTx6XVqsJu4WJ26"
+
+// user = "USERNAME"
+// pw   = "PASSWORD"
+
+// ret = requests.get("{}/auth/user?apiKey={}".format(API, APIKEY),
+                   // auth=HTTPBasicAuth(user, pw))
+
+// print(ret.status_code) # returns 200
+// print(json.loads(ret.text).keys()) 
+// # returns ['id', 'username', 'displayName', 'pastDisplayNames', 'hasEmail', 
+// # 'hasPendingEmail', 'obfuscatedEmail', 'obfuscatedPendingEmail', 'emailVerified', 
+// # 'hasBirthday', 'unsubscribe', 'friends', 'friendGroupNames', 'blueprints', 
+// # 'currentAvatarBlueprint', 'events', 'currentAvatar', 'currentAvatarImageUrl', 
+// # 'currentAvatarAssetUrl', 'currentAvatarThumbnailImageUrl', 'status', 
+// # 'statusDescription', 'acceptedTOSVersion', 'steamDetails', 'hasLoggedInFromClient', 
+// # 'homeLocation', 'tags', 'developerType'])
+		
+		
+		// var username = 'ikita';
+		// var password = 'ipq58WP5';
+		// var auth = 'Basic ' + Buffer.from(username + ':' + password).toString('base64');
+
+		// var header = {'Host': 'api.vrchat.cloud/api/1/auth/user', 'Authorization': auth};
+		// var request = client.request('GET', '/', header);
+		// console.log(request)
+		
+		
+		// var username = "ikita";
+		// var	password = "ipq58WP5";
+		// var	url = "http://api.vrchat.cloud/api/1/auth/user?apiKey=JlE5Jldo5Jibnk5O5hTx6XVqsJu4WJ26";
+		// var	auth = "Basic " + new Buffer(username + ":" + password).toString("base64");
+
+		// request(
+			// {
+				// url : url,
+				// headers : {
+					// "Authorization" : auth
+				// }
+			// },
+			// function (error, response, body) {
+				// console.log(body)
+			// }
+		// );
+		
+		
+		var username = "ikitahome";
+		var	password = "ipq58WP5";
+		var	url = "https://api.vrchat.cloud/api/1/worlds/wrld_9727a095-38e9-4686-8dd8-dad8b6bc01af?apiKey=JlE5Jldo5Jibnk5O5hTx6XVqsJu4WJ26";
+		// To check name of user:
+		// var	url = "https://api.vrchat.cloud/api/1/users/usr_bc6d0b9f-b603-4734-b3d8-30def84d3151?apiKey=JlE5Jldo5Jibnk5O5hTx6XVqsJu4WJ26";
+		var	auth = "Basic " + new Buffer(username + ":" + password).toString("base64");
+
+		request(
+			{
+				url : url,
+				headers : {
+					"Authorization" : auth
+				}
+			},
+			function (error, response, body) {
+				// console.log(body)
+				var instanceList = JSON.parse(body).instances;
+				console.log(instanceList)
+				// now we loop through each instance
+				for (var i=0; i<instanceList.length; i++) {
+					
+					let instanceid = instanceList[i][0];
+					// we now check each instance
+					// console.log(instanceid)
+					
+				}
+			}
+		);
+		
+		
+		
+		
+		
+		// new Jimp({
+			// width: 8,
+			// height: 8,
+			// data: Buffer.from(imageData)
+		// }, (err,image)=>{
+			// resolve(image.getBufferAsync(Jimp.MIME_PNG));
+		// });
+		
+		new Jimp(256, 256, 0xE0E0E0ff, (err, image) => {
+			// this image is 256 x 256, every pixel is set to 0x00000000
+			Jimp.loadFont(Jimp.FONT_SANS_16_BLACK).then(font => {
+				image.print(font, 0, 0, "Hello World");
+				resolve(image.getBufferAsync(Jimp.MIME_PNG));
+			});
 		});
+		
 	});
 }
 
