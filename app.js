@@ -9,11 +9,14 @@ const express = require("express");
 const TimeInImage = require(__dirname+"/time-in-image");
 
 var app = express();
-
+var ua = require('universal-analytics');
 var timeInImage = new TimeInImage(app, settings.path);
 timeInImage.onRequest = req=>{
 	let ip = req.ip.split(":")[3];
 	console.log(ip+=" requested the time");
+	var visitor = ua('UA-128365036-2');
+	visitor.pageview("/").send();
+	console.log("Sent analytics")
 }
 
 app.listen((process.env.PORT || settings.port), ()=>{
