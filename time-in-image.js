@@ -88,7 +88,9 @@ const make8x8ImageBufferWith4Colors = c=>{
 		// To check name of user:
 		// var	url = "https://api.vrchat.cloud/api/1/users/usr_bc6d0b9f-b603-4734-b3d8-30def84d3151?apiKey=JlE5Jldo5Jibnk5O5hTx6XVqsJu4WJ26";
 		var	auth = "Basic " + new Buffer(username + ":" + password).toString("base64");
-
+		
+		var writeText = "";
+		
 		request(
 			{
 				url : url,
@@ -104,15 +106,48 @@ const make8x8ImageBufferWith4Colors = c=>{
 				for (var i=0; i<instanceList.length; i++) {
 					
 					let instanceid = instanceList[i][0];
+					
+					
 					// we now check each instance
 					// console.log(instanceid)
-					
+					request(
+						{
+							url : "https://api.vrchat.cloud/api/1/worlds/wrld_9727a095-38e9-4686-8dd8-dad8b6bc01af/"+instanceid+"?apiKey=JlE5Jldo5Jibnk5O5hTx6XVqsJu4WJ26",
+							headers : {
+								"Authorization" : auth
+							}
+						},
+						function (error, response, body) {
+							// console.log(body)
+							let userList = JSON.parse(body).users;
+							// console.log(userList)
+							// now we loop through each instance
+							for (var i=0; i<userList.length; i++) {
+								// JSON.parse(userList[i]).displayName;
+								// let user = userList[i][0];
+								// we now check each instance
+								console.log(userList[i].displayName);
+								writeText+=(userList[i].displayName+"\r\n")
+								console.log(writeText)
+							}
+						}
+					);
 				}
+				
+				
+				
+				new Jimp(256, 256, 0xE0E0E0ff, (err, image) => {
+					// this image is 256 x 256, every pixel is set to 0x00000000
+					Jimp.loadFont(Jimp.FONT_SANS_16_BLACK).then(font => {
+						image.print(font, 0, 0, writeText);
+						resolve(image.getBufferAsync(Jimp.MIME_PNG));
+					});
+				});
 			}
 		);
 		
-		
-		
+		//wrld_9727a095-38e9-4686-8dd8-dad8b6bc01af
+		//https://api.vrchat.cloud/api/1/worlds/[ID]/[INSTANCEID]
 		
 		
 		// new Jimp({
@@ -123,13 +158,7 @@ const make8x8ImageBufferWith4Colors = c=>{
 			// resolve(image.getBufferAsync(Jimp.MIME_PNG));
 		// });
 		
-		new Jimp(256, 256, 0xE0E0E0ff, (err, image) => {
-			// this image is 256 x 256, every pixel is set to 0x00000000
-			Jimp.loadFont(Jimp.FONT_SANS_16_BLACK).then(font => {
-				image.print(font, 0, 0, "Hello World");
-				resolve(image.getBufferAsync(Jimp.MIME_PNG));
-			});
-		});
+
 		
 	});
 }
