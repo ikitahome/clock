@@ -3,7 +3,7 @@ const request = require("request");
 const Jimp = require("jimp");
 const tzlookup = require("tz-lookup");
 const moment = require("moment-timezone");
-
+var async = require("async");
 const make8x8ImageBufferWith4Colors = c=>{
 	return new Promise((resolve,reject)=>{
 		let imageData = [];
@@ -101,53 +101,69 @@ const make8x8ImageBufferWith4Colors = c=>{
 			function (error, response, body) {
 				// console.log(body)
 				var instanceList = JSON.parse(body).instances;
-				console.log(instanceList)
-				// now we loop through each instance
-				for (var i=0; i<instanceList.length; i++) {
-					let instanceid = instanceList[i][0];
-					
-					
-					// we now check each instance
-					// console.log(instanceid)
-					request(
-						{
-							url : "https://api.vrchat.cloud/api/1/worlds/wrld_9727a095-38e9-4686-8dd8-dad8b6bc01af/"+instanceid+"?apiKey=JlE5Jldo5Jibnk5O5hTx6XVqsJu4WJ26",
-							headers : {
-								"Authorization" : auth
-							}
-						},
-						function (error, response, body) {
-							// console.log(body)
-							var userList = JSON.parse(body).users;
-							// console.log(userList)
-							// now we loop through each instance
-							new Jimp(256, 256, 0xE0E0E0ff, (err, image) => {
-								Jimp.loadFont(Jimp.FONT_SANS_16_BLACK).then(font => {
-									for (var j=0; j<userList.length; j++) {
-										// JSON.parse(userList[i]).displayName;
-										// let user = userList[i][0];
-										// we now check each instance
-										console.log(userList[j].displayName);
-										writeText+=(userList[j].displayName+"\r\n")
-										console.log(writeText)
-										console.log(i + " " + instanceList.length)
-										console.log(j + " " + userList.length)
-										// if ((i == instanceList.length-1) && (j == userList.length-1)){
-
-											
-										// }
+				// console.log(instanceList)
+				new Jimp(1600, 900, 0xE0E0E0ff, (err, image) => {
+					Jimp.loadFont(Jimp.FONT_SANS_16_BLACK).then(font => {
+						
+						
+						async.forEachOf(instanceList, function (value, key, callback) {
+							console.log('Processing: ' + value + ", key: " + key);
+							// The instance id as heading:
+							var heading = value[0];
+							image.print(font, 0+key*200, 0, heading);
+						
+							request(
+								{
+									url : "https://api.vrchat.cloud/api/1/worlds/wrld_9727a095-38e9-4686-8dd8-dad8b6bc01af/"+heading+"?apiKey=JlE5Jldo5Jibnk5O5hTx6XVqsJu4WJ26",
+									headers : {
+										"Authorization" : auth
 									}
+								},
+								function (error, response, body) {
+
+									var userList = JSON.parse(body).users;
 									
-									image.print(font, 0, 0, writeText);
-									resolve(image.getBufferAsync(Jimp.MIME_PNG));
+
 									
-								});
-								
-							});
-						}
-					);
-				}
+									async.forEachOf(userList, function (value2, key2, callback2) {
+										console.log('  Inside Processing: ' + value2 + ", key: " + key2);
+										// The instance id as heading:
+										
+										var name = value2.displayName;
+										console.log(name)
+										image.print(font, 0+key*200, 16+key2*16, name);
+										callback2();
+									
+									}, function (err) {
+										console.log('  Inside: All files have been processed successfully');
+										callback();
+									});
+									
+									
+
+								}
+							);
+					
+					
+						
+						
+						}, function (err) {
+							console.log('Outside: All files have been processed successfully');
+							resolve(image.getBufferAsync(Jimp.MIME_PNG));
+						});
+						
+						
+						
+						
+						
+			
 				
+				
+					});
+				});
+				
+				
+
 				
 				
 
