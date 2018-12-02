@@ -23,9 +23,10 @@ timeInImage.onRequest = req=>{
 		ipAddr = req.connection.remoteAddress;
 	}
 	
-	console.log(ipAddr+=" requested the time");
+	
 	var visitor = ua('UA-128365036-2');
 	visitor.pageview({dp: "/", dt: "Toga & ikita Avatar", dh: "ikitaclock.herokuapp.com/testing", uip: ipAddr}).send();
+	console.log(ipAddr+=" requested the time");
 	console.log("Sent analytics")
 }
 
