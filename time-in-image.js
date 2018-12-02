@@ -73,7 +73,16 @@ const TimeInImage = function (app,path) {
 
 		res.header({"Content-Type": "image/png"});
 
-		let ip = (req.ip.split(":")[3]);
+		//let ip = (req.ip.split(":")[3]);
+		let ip = req.headers["x-forwarded-for"];
+		if (ip){
+			var list = ip.split(",");
+			ip = list[list.length-1];
+		} else {
+			ip = req.connection.remoteAddress;
+		}
+		
+		
 		if (cachedTzs[ip]) {
 			let time = moment().tz(cachedTzs[ip]).format("HH:mm:ss")
 				.split(":").map(x=>parseInt(x));
