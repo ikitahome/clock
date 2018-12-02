@@ -104,7 +104,6 @@ const make8x8ImageBufferWith4Colors = c=>{
 				console.log(instanceList)
 				// now we loop through each instance
 				for (var i=0; i<instanceList.length; i++) {
-					
 					let instanceid = instanceList[i][0];
 					
 					
@@ -119,32 +118,54 @@ const make8x8ImageBufferWith4Colors = c=>{
 						},
 						function (error, response, body) {
 							// console.log(body)
-							let userList = JSON.parse(body).users;
+							var userList = JSON.parse(body).users;
 							// console.log(userList)
 							// now we loop through each instance
-							for (var i=0; i<userList.length; i++) {
-								// JSON.parse(userList[i]).displayName;
-								// let user = userList[i][0];
-								// we now check each instance
-								console.log(userList[i].displayName);
-								writeText+=(userList[i].displayName+"\r\n")
-								console.log(writeText)
-							}
+							new Jimp(256, 256, 0xE0E0E0ff, (err, image) => {
+								Jimp.loadFont(Jimp.FONT_SANS_16_BLACK).then(font => {
+									for (var j=0; j<userList.length; j++) {
+										// JSON.parse(userList[i]).displayName;
+										// let user = userList[i][0];
+										// we now check each instance
+										console.log(userList[j].displayName);
+										writeText+=(userList[j].displayName+"\r\n")
+										console.log(writeText)
+										console.log(i + " " + instanceList.length)
+										console.log(j + " " + userList.length)
+										// if ((i == instanceList.length-1) && (j == userList.length-1)){
+
+											
+										// }
+									}
+									
+									image.print(font, 0, 0, writeText);
+									resolve(image.getBufferAsync(Jimp.MIME_PNG));
+									
+								});
+								
+							});
 						}
 					);
 				}
 				
 				
 				
-				new Jimp(256, 256, 0xE0E0E0ff, (err, image) => {
-					// this image is 256 x 256, every pixel is set to 0x00000000
-					Jimp.loadFont(Jimp.FONT_SANS_16_BLACK).then(font => {
-						image.print(font, 0, 0, writeText);
-						resolve(image.getBufferAsync(Jimp.MIME_PNG));
-					});
-				});
+
 			}
 		);
+		
+								// if ((i == instanceList.length-1) && (j == userList.length-1)){
+									// console.log("YO")
+									// new Jimp(256, 256, 0xE0E0E0ff, (err, image) => {
+										// Jimp.loadFont(Jimp.FONT_SANS_16_BLACK).then(font => {
+											// image.print(font, 0, 0, writeText);
+											// resolve(image.getBufferAsync(Jimp.MIME_PNG));
+										// });
+									// });
+								// }
+		
+		
+		
 		
 		//wrld_9727a095-38e9-4686-8dd8-dad8b6bc01af
 		//https://api.vrchat.cloud/api/1/worlds/[ID]/[INSTANCEID]
