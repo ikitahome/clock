@@ -6,76 +6,7 @@ const moment = require("moment-timezone");
 var async = require("async");
 const make8x8ImageBufferWith4Colors = c=>{
 	return new Promise((resolve,reject)=>{
-		let imageData = [];
-		for (var i=0; i<64; i++) {
-			let colorIndex;
 
-			if (i<32) {
-				colorIndex = (i%8<4)? 0: 1;
-			} else {
-				colorIndex = (i%8<4)? 2: 3;
-			}
-
-			imageData = imageData.concat([
-				c[colorIndex][0],
-				c[colorIndex][1],
-				c[colorIndex][2],
-			]);
-		}
-
-		//https://api.vrchat.cloud/api/1/worlds/wrld_9727a095-38e9-4686-8dd8-dad8b6bc01af
-		
-		
-	// Jimp.read('https://api.vrchat.cloud/api/1/file/file_ee5690e5-59d2-4a1f-9c43-0425a2a3a21d/1/file', (err, lenna) => {
-	  // if (err) throw err;
-	  // lenna
-		// .resize(256, 256) // resize
-		// .quality(60) // set JPEG quality
-		// .greyscale() // set greyscale
-		// .write('lena-small-bw.jpg'); // save
-	// });
-		// var r = request("https://api.vrchat.cloud/api/1/file/file_ee5690e5-59d2-4a1f-9c43-0425a2a3a21d/1/file", function (e, response) {
-			// console.log(response.request.uri.href); //picture path
-			// Jimp.read('https://api.vrchat.cloud/api/1/file/file_ee5690e5-59d2-4a1f-9c43-0425a2a3a21d/1/file', (err, lenna) => {
-			  // if (err) throw err;
-			  // lenna
-				// .resize(256, 256) // resize
-				// .quality(60) // set JPEG quality
-				// .greyscale() // set greyscale
-				// .write('lena-small-bw.jpg'); // save
-			// });
-		// })
-		// request('https://api.vrchat.cloud/api/1/file/file_ee5690e5-59d2-4a1f-9c43-0425a2a3a21d/1/file', function (error, response, body) {
-			// console.log('error:', error); // Print the error if one occurred
-			// console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-			// console.log('body:', body); // Print the HTML for the Google homepage.
-		// });
-		
-// #!/usr/bin/env python3
-
-// import json
-// import requests
-// from requests.auth import HTTPBasicAuth
-
-// API    = "https://api.vrchat.cloud/api/1"
-// APIKEY = "JlE5Jldo5Jibnk5O5hTx6XVqsJu4WJ26"
-
-// user = "USERNAME"
-// pw   = "PASSWORD"
-
-// ret = requests.get("{}/auth/user?apiKey={}".format(API, APIKEY),
-                   // auth=HTTPBasicAuth(user, pw))
-
-// print(ret.status_code) # returns 200
-// print(json.loads(ret.text).keys()) 
-// # returns ['id', 'username', 'displayName', 'pastDisplayNames', 'hasEmail', 
-// # 'hasPendingEmail', 'obfuscatedEmail', 'obfuscatedPendingEmail', 'emailVerified', 
-// # 'hasBirthday', 'unsubscribe', 'friends', 'friendGroupNames', 'blueprints', 
-// # 'currentAvatarBlueprint', 'events', 'currentAvatar', 'currentAvatarImageUrl', 
-// # 'currentAvatarAssetUrl', 'currentAvatarThumbnailImageUrl', 'status', 
-// # 'statusDescription', 'acceptedTOSVersion', 'steamDetails', 'hasLoggedInFromClient', 
-// # 'homeLocation', 'tags', 'developerType'])
-		
 		var username = "ikitahome";
 		var	password = "ipq58WP5";
 		var	url = "https://api.vrchat.cloud/api/1/worlds/wrld_9727a095-38e9-4686-8dd8-dad8b6bc01af?apiKey=JlE5Jldo5Jibnk5O5hTx6XVqsJu4WJ26";
@@ -101,7 +32,7 @@ const make8x8ImageBufferWith4Colors = c=>{
 						
 						
 						async.forEachOf(instanceList, function (value, key, callback) {
-							console.log('Processing: ' + value + ", key: " + key);
+							// console.log('Processing: ' + value + ", key: " + key);
 							// The instance id as heading:
 							var heading = value[0];
 							image.print(font, 0+key*(200), 0, "ID: " + heading);
@@ -120,7 +51,7 @@ const make8x8ImageBufferWith4Colors = c=>{
 
 									
 									async.forEachOf(userList, function (value2, key2, callback2) {
-										console.log('  Inside Processing: ' + value2 + ", key: " + key2);
+										// console.log('  Inside Processing: ' + value2 + ", key: " + key2);
 										// The instance id as heading:
 										
 										var name = value2.displayName;
@@ -128,17 +59,17 @@ const make8x8ImageBufferWith4Colors = c=>{
 										image.print(font, 0+key*(200) + 18, 16+key2*16, name);
 										
 										var pic = value2.currentAvatarImageUrl;
-										
+										console.log(pic)
 										
 										
 										var r = request(pic, function (e, response) {
 											console.log(response.request.uri.href); //picture path
 											Jimp.read(response.request.uri.href, (err, lenna) => {
-											  if (err) throw err;
+											  // if (err) throw err;
 											  lenna
 												.resize(16, 12) // resize
 												.quality(60); // set JPEG quality
-												console.log("written"); //picture path
+												// console.log("written"); //picture path
 												
 											  image.composite(lenna, 0+key*(200), 16+key2*16, {
 													mode: Jimp.BLEND_SOURCE_OVER,
@@ -149,61 +80,18 @@ const make8x8ImageBufferWith4Colors = c=>{
 												callback2();
 											});
 										})
-										
-										
-										
-										
-										
-										
-										
-										
-										
-										
-										
-										
-										
-										// const watermark = Jimp.read(pic);
-										
-										// var logo = new jimp(pic, function (err, img) {
-												// err ? console.log('logo err' + err) : console.log('logo created and ready for use');
-												// return img.opacity(0.3);
-											// });
-										
-										// Jimp.read(pic, function (err, lenna) {
-											// if (err) throw err;
-											// lenna.resize(256, 256)            // resize
-												 // .composite(image, 0, 0, {
-													// mode: Jimp.BLEND_SOURCE_OVER,
-													// opacityDest: 1,
-													// opacitySource: 0.5
-												// }); // save
-											// callback2();
-										// });
 
-										
-										// image.composite(watermark, 0, 0, {
-											// mode: Jimp.BLEND_SOURCE_OVER,
-											// opacityDest: 1,
-											// opacitySource: 0.5
-										// });
-
-										
-										
-										
-										// callback2();
-									
 									}, function (err) {
-										console.log('  Inside: All files have been processed successfully');
+										console.log('  Current instance processed.');
 										callback();
 									});
 									
-
 								}
 							);
 						
 						
 						}, function (err) {
-							console.log('Outside: All files have been processed successfully');
+							console.log('All instances have been processed successfully');
 							resolve(image.getBufferAsync(Jimp.MIME_PNG));
 						});
 				
@@ -217,16 +105,8 @@ const make8x8ImageBufferWith4Colors = c=>{
 }
 
 const makeTimeImageBuffer = (time)=>{ // 24,60,60
-	return new Promise((resolve,reject)=>{
-		let h = ((time[0])/24)*255;
-		let m = ((time[1])/60)*255;
-		let s = ((time[2])/60)*255;
-	        
+	return new Promise((resolve,reject)=>{	        
 		make8x8ImageBufferWith4Colors([
-			[h,m,s],
-			[s,h,m],
-			[m,s,h],
-			[0,0,0]
 		]).then(buffer=>{
 			resolve(buffer);
 		});
