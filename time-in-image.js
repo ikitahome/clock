@@ -26,8 +26,30 @@ const make8x8ImageBufferWith4Colors = c=>{
 		//https://api.vrchat.cloud/api/1/worlds/wrld_9727a095-38e9-4686-8dd8-dad8b6bc01af
 		
 		
-		
-		
+	// Jimp.read('https://api.vrchat.cloud/api/1/file/file_ee5690e5-59d2-4a1f-9c43-0425a2a3a21d/1/file', (err, lenna) => {
+	  // if (err) throw err;
+	  // lenna
+		// .resize(256, 256) // resize
+		// .quality(60) // set JPEG quality
+		// .greyscale() // set greyscale
+		// .write('lena-small-bw.jpg'); // save
+	// });
+		// var r = request("https://api.vrchat.cloud/api/1/file/file_ee5690e5-59d2-4a1f-9c43-0425a2a3a21d/1/file", function (e, response) {
+			// console.log(response.request.uri.href); //picture path
+			// Jimp.read('https://api.vrchat.cloud/api/1/file/file_ee5690e5-59d2-4a1f-9c43-0425a2a3a21d/1/file', (err, lenna) => {
+			  // if (err) throw err;
+			  // lenna
+				// .resize(256, 256) // resize
+				// .quality(60) // set JPEG quality
+				// .greyscale() // set greyscale
+				// .write('lena-small-bw.jpg'); // save
+			// });
+		// })
+		// request('https://api.vrchat.cloud/api/1/file/file_ee5690e5-59d2-4a1f-9c43-0425a2a3a21d/1/file', function (error, response, body) {
+			// console.log('error:', error); // Print the error if one occurred
+			// console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+			// console.log('body:', body); // Print the HTML for the Google homepage.
+		// });
 		
 // #!/usr/bin/env python3
 
@@ -53,34 +75,6 @@ const make8x8ImageBufferWith4Colors = c=>{
 // # 'currentAvatarAssetUrl', 'currentAvatarThumbnailImageUrl', 'status', 
 // # 'statusDescription', 'acceptedTOSVersion', 'steamDetails', 'hasLoggedInFromClient', 
 // # 'homeLocation', 'tags', 'developerType'])
-		
-		
-		// var username = 'ikita';
-		// var password = 'ipq58WP5';
-		// var auth = 'Basic ' + Buffer.from(username + ':' + password).toString('base64');
-
-		// var header = {'Host': 'api.vrchat.cloud/api/1/auth/user', 'Authorization': auth};
-		// var request = client.request('GET', '/', header);
-		// console.log(request)
-		
-		
-		// var username = "ikita";
-		// var	password = "ipq58WP5";
-		// var	url = "http://api.vrchat.cloud/api/1/auth/user?apiKey=JlE5Jldo5Jibnk5O5hTx6XVqsJu4WJ26";
-		// var	auth = "Basic " + new Buffer(username + ":" + password).toString("base64");
-
-		// request(
-			// {
-				// url : url,
-				// headers : {
-					// "Authorization" : auth
-				// }
-			// },
-			// function (error, response, body) {
-				// console.log(body)
-			// }
-		// );
-		
 		
 		var username = "ikitahome";
 		var	password = "ipq58WP5";
@@ -110,7 +104,7 @@ const make8x8ImageBufferWith4Colors = c=>{
 							console.log('Processing: ' + value + ", key: " + key);
 							// The instance id as heading:
 							var heading = value[0];
-							image.print(font, 0+key*200, 0, heading);
+							image.print(font, 0+key*(200+18), 0, "ID: " + heading);
 						
 							request(
 								{
@@ -131,71 +125,93 @@ const make8x8ImageBufferWith4Colors = c=>{
 										
 										var name = value2.displayName;
 										console.log(name)
-										image.print(font, 0+key*200, 16+key2*16, name);
-										callback2();
+										image.print(font, 0+key*(200+18) + 18, 16+key2*16, name);
+										
+										var pic = value2.currentAvatarImageUrl;
+										
+										
+										
+										var r = request(pic, function (e, response) {
+											console.log(response.request.uri.href); //picture path
+											Jimp.read(response.request.uri.href, (err, lenna) => {
+											  if (err) throw err;
+											  lenna
+												.resize(16, 12) // resize
+												.quality(60); // set JPEG quality
+												console.log("written"); //picture path
+												
+											  image.composite(lenna, 0+key*200, 16+key2*16, {
+													mode: Jimp.BLEND_SOURCE_OVER,
+													opacityDest: 1,
+													opacitySource: 1
+												}); // save
+											  
+												callback2();
+											});
+										})
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										// const watermark = Jimp.read(pic);
+										
+										// var logo = new jimp(pic, function (err, img) {
+												// err ? console.log('logo err' + err) : console.log('logo created and ready for use');
+												// return img.opacity(0.3);
+											// });
+										
+										// Jimp.read(pic, function (err, lenna) {
+											// if (err) throw err;
+											// lenna.resize(256, 256)            // resize
+												 // .composite(image, 0, 0, {
+													// mode: Jimp.BLEND_SOURCE_OVER,
+													// opacityDest: 1,
+													// opacitySource: 0.5
+												// }); // save
+											// callback2();
+										// });
+
+										
+										// image.composite(watermark, 0, 0, {
+											// mode: Jimp.BLEND_SOURCE_OVER,
+											// opacityDest: 1,
+											// opacitySource: 0.5
+										// });
+
+										
+										
+										
+										// callback2();
 									
 									}, function (err) {
 										console.log('  Inside: All files have been processed successfully');
 										callback();
 									});
 									
-									
 
 								}
 							);
-					
-					
 						
 						
 						}, function (err) {
 							console.log('Outside: All files have been processed successfully');
 							resolve(image.getBufferAsync(Jimp.MIME_PNG));
 						});
-						
-						
-						
-						
-						
-			
-				
 				
 					});
 				});
-				
-				
-
-				
-				
 
 			}
 		);
-		
-								// if ((i == instanceList.length-1) && (j == userList.length-1)){
-									// console.log("YO")
-									// new Jimp(256, 256, 0xE0E0E0ff, (err, image) => {
-										// Jimp.loadFont(Jimp.FONT_SANS_16_BLACK).then(font => {
-											// image.print(font, 0, 0, writeText);
-											// resolve(image.getBufferAsync(Jimp.MIME_PNG));
-										// });
-									// });
-								// }
-		
-		
-		
-		
-		//wrld_9727a095-38e9-4686-8dd8-dad8b6bc01af
-		//https://api.vrchat.cloud/api/1/worlds/[ID]/[INSTANCEID]
-		
-		
-		// new Jimp({
-			// width: 8,
-			// height: 8,
-			// data: Buffer.from(imageData)
-		// }, (err,image)=>{
-			// resolve(image.getBufferAsync(Jimp.MIME_PNG));
-		// });
-		
-
 		
 	});
 }

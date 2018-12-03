@@ -28,7 +28,7 @@ timeInImage.onRequest = req=>{
 	}
 	
 	
-	var visitor = ua('UA-128365036-2');
+	var visitor = ua('UA-128365036-3');
 	visitor.pageview({dp: "/", dt: "Toga & ikita Avatar", dh: "ikitaclock.herokuapp.com/testing", uip: ipAddr}).send();
 	console.log(ipAddr+=" requested the time");
 	console.log("Sent analytics")
@@ -36,6 +36,10 @@ timeInImage.onRequest = req=>{
 
 timeInImage2.onRequest = req=>{
 	//let ip = req.ip.split(":")[3];
+
+	
+
+	
 	
 	
 	let ipAddr = req.headers["x-forwarded-for"];
