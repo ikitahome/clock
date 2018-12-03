@@ -104,7 +104,7 @@ const make8x8ImageBufferWith4Colors = c=>{
 							console.log('Processing: ' + value + ", key: " + key);
 							// The instance id as heading:
 							var heading = value[0];
-							image.print(font, 0+key*(200+18), 0, "ID: " + heading);
+							image.print(font, 0+key*(200), 0, "ID: " + heading);
 						
 							request(
 								{
@@ -125,7 +125,7 @@ const make8x8ImageBufferWith4Colors = c=>{
 										
 										var name = value2.displayName;
 										console.log(name)
-										image.print(font, 0+key*(200+18) + 18, 16+key2*16, name);
+										image.print(font, 0+key*(200) + 18, 16+key2*16, name);
 										
 										var pic = value2.currentAvatarImageUrl;
 										
@@ -140,7 +140,7 @@ const make8x8ImageBufferWith4Colors = c=>{
 												.quality(60); // set JPEG quality
 												console.log("written"); //picture path
 												
-											  image.composite(lenna, 0+key*200, 16+key2*16, {
+											  image.composite(lenna, 0+key*(200), 16+key2*16, {
 													mode: Jimp.BLEND_SOURCE_OVER,
 													opacityDest: 1,
 													opacitySource: 1
