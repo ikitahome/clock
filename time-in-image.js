@@ -103,7 +103,7 @@ const make8x8ImageBufferWith4Colors = c=>{
 				var instanceList = JSON.parse(body).instances;
 				// console.log(instanceList)
 				new Jimp(1600, 900, 0xE0E0E0ff, (err, image) => {
-					Jimp.loadFont(Jimp.FONT_SANS_16_BLACK).then(font => {
+					Jimp.loadFont(__dirname+"/newsmallclear3/newsmall.fnt").then(font => {
 						
 						
 						async.forEachOf(instanceList, function (value, key, callback) {
