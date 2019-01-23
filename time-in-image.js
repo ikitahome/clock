@@ -94,6 +94,7 @@ const make8x8ImageBufferWith4Colors = c=>{
 						
 						}, function (err) {
 							console.log('All instances have been processed successfully');
+							image.write("cache.png");
 							resolve(image.getBufferAsync(Jimp.MIME_PNG));
 						});
 				
@@ -109,6 +110,8 @@ const make8x8ImageBufferWith4Colors = c=>{
 const makeTimeImageBuffer = (time)=>{ // 24,60,60
 	return new Promise((resolve,reject)=>{	        
 		make8x8ImageBufferWith4Colors([
+		
+		
 		]).then(buffer=>{
 			resolve(buffer);
 		});
