@@ -27,7 +27,7 @@ const make8x8ImageBufferWith4Colors = c=>{
 				// console.log(body)
 				var instanceList = JSON.parse(body).instances;
 				// console.log(instanceList)
-				new Jimp(1600, 900, 0xE0E0E0ff, (err, image) => {
+				new Jimp(600, 200, 0xE0E0E0ff, (err, image) => {
 					Jimp.loadFont(__dirname+"/newsmallclear3/newsmall.fnt").then(font => {
 						
 						
@@ -35,11 +35,12 @@ const make8x8ImageBufferWith4Colors = c=>{
 							// console.log('Processing: ' + value + ", key: " + key);
 							// The instance id as heading:
 							var heading = value[0];
-							image.print(font, 0+key*(200), 0, "ID: " + heading);
+							image.print(font, 0+key*(120), 0, "ID: " + heading);
 						
 							request(
 								{
-									url : "https://api.vrchat.cloud/api/1/worlds/wrld_9727a095-38e9-4686-8dd8-dad8b6bc01af/"+heading+"?apiKey=JlE5Jldo5Jibnk5O5hTx6XVqsJu4WJ26",
+									// url : "https://api.vrchat.cloud/api/1/worlds/wrld_9727a095-38e9-4686-8dd8-dad8b6bc01af/"+heading+"?apiKey=JlE5Jldo5Jibnk5O5hTx6XVqsJu4WJ26",
+									url : "https://api.vrchat.cloud/api/1/worlds/wrld_7e10376a-29b6-43af-ac5d-6eb72732e90c/"+heading+"?apiKey=JlE5Jldo5Jibnk5O5hTx6XVqsJu4WJ26",
 									headers : {
 										"Authorization" : auth
 									}
@@ -56,7 +57,7 @@ const make8x8ImageBufferWith4Colors = c=>{
 										
 										var name = value2.displayName;
 										console.log(name)
-										image.print(font, 0+key*(200) + 18, 16+key2*16, name);
+										image.print(font, 0+key*(120) + 18, 16+key2*16, name);
 										
 										var pic = value2.currentAvatarImageUrl;
 										console.log(pic)
@@ -71,7 +72,7 @@ const make8x8ImageBufferWith4Colors = c=>{
 												.quality(60); // set JPEG quality
 												// console.log("written"); //picture path
 												
-											  image.composite(lenna, 0+key*(200), 16+key2*16, {
+											  image.composite(lenna, 0+key*(120), 16+key2*16, {
 													mode: Jimp.BLEND_SOURCE_OVER,
 													opacityDest: 1,
 													opacitySource: 1
