@@ -9,6 +9,7 @@ const make8x8ImageBufferWith4Colors = c=>{
 
 		var username = "ikitahome";
 		var	password = "ipq58WP5";
+		// var	url = "https://api.vrchat.cloud/api/1/worlds/wrld_7e10376a-29b6-43af-ac5d-6eb72732e90c?apiKey=JlE5Jldo5Jibnk5O5hTx6XVqsJu4WJ26";
 		var	url = "https://api.vrchat.cloud/api/1/worlds/wrld_9727a095-38e9-4686-8dd8-dad8b6bc01af?apiKey=JlE5Jldo5Jibnk5O5hTx6XVqsJu4WJ26";
 		// To check name of user:
 		// var	url = "https://api.vrchat.cloud/api/1/users/usr_bc6d0b9f-b603-4734-b3d8-30def84d3151?apiKey=JlE5Jldo5Jibnk5O5hTx6XVqsJu4WJ26";
