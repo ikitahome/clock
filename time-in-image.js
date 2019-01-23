@@ -4,6 +4,7 @@ const Jimp = require("jimp");
 const tzlookup = require("tz-lookup");
 const moment = require("moment-timezone");
 var async = require("async");
+var util = require('util')
 const make8x8ImageBufferWith4Colors = c=>{
 	return new Promise((resolve,reject)=>{
 
@@ -108,14 +109,92 @@ const make8x8ImageBufferWith4Colors = c=>{
 }
 
 const makeTimeImageBuffer = (time)=>{ // 24,60,60
+
+
+	// Jimp.read('cache.png', (err, lenna) => {
+	  // if (err) {
+		  // print("ERROR reading cache.png")
+	  // };
+	  // lenna
+		// .resize(256, 256) // resize
+		// .quality(60) // set JPEG quality
+		// .greyscale() // set greyscale
+		// .write('lena-small-bw.jpg'); // save
+	// });
+	
+
+	
+
+	// Jimp.read('cache.jpg')
+	// .then(image => {
+		// resolve(image.getBufferAsync(Jimp.MIME_PNG));
+	// })
+	// .catch(err => {
+		// console.log('READ IMAGE ERROR');
+	// });
+	
+
 	return new Promise((resolve,reject)=>{	        
-		make8x8ImageBufferWith4Colors([
-		
-		
-		]).then(buffer=>{
-			resolve(buffer);
+	
+		fs.access('cache.png', (err) => {
+			if (!err) {
+				console.log('myfile exists');
+				var stats = fs.statSync("cache.png");
+				var mtime = new Date(util.inspect(stats.mtime));
+				console.log(stats.mtime.getTime());
+				var d = new Date();
+				console.log(d.getTime());
+				
+				if ((d - mtime) < 60000) {
+					console.log('recent image');
+					Jimp.read('./cache.png')
+					.then(image => {
+						console.log('RESOLVE IMAGE !!!!!');
+						resolve( image.getBufferAsync(Jimp.MIME_PNG));
+					})
+					.catch(err => {
+						console.log('READ IMAGE ERROR');
+						make8x8ImageBufferWith4Colors([
+						]).then(buffer=>{
+							resolve(buffer);
+						});
+					});
+				};
+				if ((d - mtime) >= 60000) {
+					console.log('old image');
+					make8x8ImageBufferWith4Colors([
+					]).then(buffer=>{
+						resolve(buffer);
+					});
+				};
+				
+				
+				
+				
+				
+				
+				
+			// return;
+		}
+			if (err) {
+				console.log('myfile does not exist');
+				make8x8ImageBufferWith4Colors([
+				]).then(buffer=>{
+					resolve(buffer);
+				});
+			}
 		});
+	
+	
+	
+
+		
+		
+		
 	});
+
+
+
 };
 
 const generateCharacters = (amount)=>{
