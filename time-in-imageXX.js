@@ -303,6 +303,9 @@ const TimeInImageXX = function (app,path) {
 		
 		let ip = (ipAddr.split(":")[3]);
 		console.log("ipAddr: " + ipAddr);
+		console.log("reqip: " + req.ip);
+		console.log("splitip: " + (ipAddr.split(":")[3]));
+		
 		// if (cachedTzs[ip]) {
 			// let time = moment().tz(cachedTzs[ip]).format("HH:mm:ss")
 				// .split(":").map(x=>parseInt(x));
