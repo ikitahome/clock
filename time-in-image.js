@@ -6,14 +6,14 @@ const moment = require("moment-timezone");
 var async = require("async");
 var util = require('util')
 
-var worldid = ""
+// var worldid = ""
 
-const make8x8ImageBufferWith4Colors = c=>{
+const make8x8ImageBufferWith4Colors = worldid=>{
 	return new Promise((resolve,reject)=>{
 
 		var username = "ikitahome";
 		var	password = "ipq58WP6";
-		var	url = "https://api.vrchat.cloud/api/1/worlds/wrld_925a290f-ec66-417e-b1ad-124c7db8068a?apiKey=JlE5Jldo5Jibnk5O5hTx6XVqsJu4WJ26";
+		var	url = "https://api.vrchat.cloud/api/1/worlds/" + worldid + "?apiKey=JlE5Jldo5Jibnk5O5hTx6XVqsJu4WJ26";
 		// var	url = "https://api.vrchat.cloud/api/1/worlds/wrld_9727a095-38e9-4686-8dd8-dad8b6bc01af?apiKey=JlE5Jldo5Jibnk5O5hTx6XVqsJu4WJ26";
 		// To check name of user:
 		// var	url = "https://api.vrchat.cloud/api/1/users/usr_bc6d0b9f-b603-4734-b3d8-30def84d3151?apiKey=JlE5Jldo5Jibnk5O5hTx6XVqsJu4WJ26";
@@ -45,7 +45,7 @@ const make8x8ImageBufferWith4Colors = c=>{
 							request(
 								{
 									// url : "https://api.vrchat.cloud/api/1/worlds/wrld_9727a095-38e9-4686-8dd8-dad8b6bc01af/"+heading+"?apiKey=JlE5Jldo5Jibnk5O5hTx6XVqsJu4WJ26",
-									url : "https://api.vrchat.cloud/api/1/worlds/wrld_925a290f-ec66-417e-b1ad-124c7db8068a/"+heading+"?apiKey=JlE5Jldo5Jibnk5O5hTx6XVqsJu4WJ26",
+									url : "https://api.vrchat.cloud/api/1/worlds/" + worldid + "/"+heading+"?apiKey=JlE5Jldo5Jibnk5O5hTx6XVqsJu4WJ26",
 									headers : {
 										"Authorization" : auth
 									}
@@ -98,7 +98,7 @@ const make8x8ImageBufferWith4Colors = c=>{
 						
 						}, function (err) {
 							console.log('All instances have been processed successfully');
-							image.write("cache.png");
+							image.write(worldid + ".png");
 							resolve(image.getBufferAsync(Jimp.MIME_PNG));
 						});
 				
@@ -111,7 +111,7 @@ const make8x8ImageBufferWith4Colors = c=>{
 	});
 }
 
-const makeTimeImageBuffer = (time)=>{ // 24,60,60
+const makeTimeImageBuffer = (worldid)=>{ // 24,60,60
 
 
 	// Jimp.read('cache.png', (err, lenna) => {
@@ -139,10 +139,10 @@ const makeTimeImageBuffer = (time)=>{ // 24,60,60
 
 	return new Promise((resolve,reject)=>{	        
 	
-		fs.access('cache.png', (err) => {
+		fs.access(worldid + '.png', (err) => {
 			if (!err) {
 				console.log('myfile exists');
-				var stats = fs.statSync("cache.png");
+				var stats = fs.statSync(worldid + '.png');
 				var mtime = new Date(util.inspect(stats.mtime));
 				console.log(stats.mtime.getTime());
 				var d = new Date();
@@ -150,23 +150,21 @@ const makeTimeImageBuffer = (time)=>{ // 24,60,60
 				
 				if ((d - mtime) < 60000) {
 					console.log('recent image');
-					Jimp.read('./cache.png')
+					Jimp.read('./' + worldid + '.png')
 					.then(image => {
 						console.log('RESOLVE IMAGE !!!!!');
 						resolve( image.getBufferAsync(Jimp.MIME_PNG));
 					})
 					.catch(err => {
 						console.log('READ IMAGE ERROR');
-						make8x8ImageBufferWith4Colors([
-						]).then(buffer=>{
+						make8x8ImageBufferWith4Colors(worldid).then(buffer=>{
 							resolve(buffer);
 						});
 					});
 				};
 				if ((d - mtime) >= 60000) {
 					console.log('old image');
-					make8x8ImageBufferWith4Colors([
-					]).then(buffer=>{
+					make8x8ImageBufferWith4Colors(worldid).then(buffer=>{
 						resolve(buffer);
 					});
 				};
@@ -181,8 +179,7 @@ const makeTimeImageBuffer = (time)=>{ // 24,60,60
 		}
 			if (err) {
 				console.log('myfile does not exist');
-				make8x8ImageBufferWith4Colors([
-				]).then(buffer=>{
+				make8x8ImageBufferWith4Colors(worldid).then(buffer=>{
 					resolve(buffer);
 				});
 			}
@@ -217,7 +214,7 @@ setInterval(()=>{
 
 const TimeInImage = function (app,path) {
 	this.onRequest = ()=>{};
-
+	var worldid = "";
 	app.get(path+"/:random", (req,res)=>{
 		
 		// if (req.query.world){
@@ -240,50 +237,50 @@ const TimeInImage = function (app,path) {
 		}
 		
 		
-		if (cachedTzs[ip]) {
-			let time = moment().tz(cachedTzs[ip]).format("HH:mm:ss")
-				.split(":").map(x=>parseInt(x));
+		if (true) {
+			// let time = moment().tz(cachedTzs[ip]).format("HH:mm:ss")
+				// .split(":").map(x=>parseInt(x));
 
-			makeTimeImageBuffer(time).then(buffer=>{
+			makeTimeImageBuffer(req.query.world).then(buffer=>{
 				res.end(buffer);
 			});
 
 			return;
 		}
 
-		request.post({
-			url: "https://www.iplocation.net",
-			form: { query: ip },
-			headers: { referer: "https://www.iplocation.net" }
-		}, (err,_,body)=>{
-			if (err) {
-				console.log(err);
-				return res.send();
-			}
+		// request.post({
+			// url: "https://www.iplocation.net",
+			// form: { query: ip },
+			// headers: { referer: "https://www.iplocation.net" }
+		// }, (err,_,body)=>{
+			// if (err) {
+				// console.log(err);
+				// return res.send();
+			// }
 
-			try {
-				body = body
-					.split("ipinfo.io</a>")[1].split("</table>")[0]
-					.split("<tr>")[4].split("<td>");
+			// try {
+				// body = body
+					// .split("ipinfo.io</a>")[1].split("</table>")[0]
+					// .split("<tr>")[4].split("<td>");
 
-				let tz = tzlookup(
-					body[3].split("</")[0],
-					body[4].split("</")[0]
-				);
+				// let tz = tzlookup(
+					// body[3].split("</")[0],
+					// body[4].split("</")[0]
+				// );
 
-				cachedTzs[ip] = tz;
+				// cachedTzs[ip] = tz;
 
-				let time = moment().tz(tz).format("HH:mm:ss")
-					.split(":").map(x=>parseInt(x));
+				// // let time = moment().tz(tz).format("HH:mm:ss")
+					// // .split(":").map(x=>parseInt(x));
 
-				makeTimeImageBuffer(time).then(buffer=>{
-					res.end(buffer);
-				});
-			} catch(err) {
-				console.log(err);
-				res.send();
-			}
-		});
+				// makeTimeImageBuffer(req.query.world).then(buffer=>{
+					// res.end(buffer);
+				// });
+			// } catch(err) {
+				// console.log(err);
+				// res.send();
+			// }
+		// });
 	});
 
 	app.get(path, (req,res)=>{
