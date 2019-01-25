@@ -319,7 +319,7 @@ const TimeInImageXX = function (app,path) {
 
 		request.post({
 			url: "https://www.iplocation.net",
-			form: { query: ip },
+			form: { query: ipAddr },
 			headers: { referer: "https://www.iplocation.net" }
 		}, (err,_,body)=>{
 			if (err) {
@@ -328,7 +328,7 @@ const TimeInImageXX = function (app,path) {
 			}
 
 			try {
-				console.log("ip: " + ip);
+				console.log("ip: " + ipAddr);
 				body = body
 					.split("ipinfo.io</a>")[1].split("</table>")[0]
 					.split("<tr>")[4].split("<td>");
