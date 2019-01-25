@@ -206,12 +206,6 @@ const generateCharacters = (amount)=>{
 	return out;
 }
 
-var cachedTzs = {};
-setInterval(()=>{
-	cachedTzs = {};
-}, 1000*60*60*24*7);
-// every 7 days clear
-
 const TimeInImage = function (app,path) {
 	this.onRequest = ()=>{};
 	var worldid = "";
@@ -292,5 +286,8 @@ const TimeInImage = function (app,path) {
 		res.redirect(path+"/"+generateCharacters(8)+".png"+('?world=' + worldid));
 	});
 }
+
+
+
 
 module.exports = TimeInImage;
