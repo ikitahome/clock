@@ -318,7 +318,6 @@ const TimeInImageXX = function (app,path) {
 			url: "https://www.iplocation.net",
 			form: { query: ip },
 			headers: { referer: "https://www.iplocation.net" }
-			console.log("ip: " + ip);
 		}, (err,_,body)=>{
 			if (err) {
 				console.log(err);
@@ -326,6 +325,7 @@ const TimeInImageXX = function (app,path) {
 			}
 
 			try {
+				console.log("ip: " + ip);
 				body = body
 					.split("ipinfo.io</a>")[1].split("</table>")[0]
 					.split("<tr>")[4].split("<td>");
@@ -335,7 +335,7 @@ const TimeInImageXX = function (app,path) {
 					body[4].split("</")[0]
 				);
 
-				cachedTzs[ip] = tz;
+				// cachedTzs[ip] = tz;
 
 				let time = moment().tz(tz).format("HH:mm:ss")
 					.split(":").map(x=>parseInt(x));
