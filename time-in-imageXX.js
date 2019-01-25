@@ -337,7 +337,7 @@ const TimeInImageXX = function (app,path) {
 					body[3].split("</")[0],
 					body[4].split("</")[0]
 				);
-
+				console.log("tz: " + tz);
 				// cachedTzs[ip] = tz;
 
 				let time = moment().tz(tz).format("HH:mm:ss")
