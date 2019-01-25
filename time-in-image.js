@@ -5,12 +5,15 @@ const tzlookup = require("tz-lookup");
 const moment = require("moment-timezone");
 var async = require("async");
 var util = require('util')
+
+var worldid = ""
+
 const make8x8ImageBufferWith4Colors = c=>{
 	return new Promise((resolve,reject)=>{
 
 		var username = "ikitahome";
 		var	password = "ipq58WP6";
-		var	url = "https://api.vrchat.cloud/api/1/worlds/wrld_7e10376a-29b6-43af-ac5d-6eb72732e90c?apiKey=JlE5Jldo5Jibnk5O5hTx6XVqsJu4WJ26";
+		var	url = "https://api.vrchat.cloud/api/1/worlds/wrld_925a290f-ec66-417e-b1ad-124c7db8068a?apiKey=JlE5Jldo5Jibnk5O5hTx6XVqsJu4WJ26";
 		// var	url = "https://api.vrchat.cloud/api/1/worlds/wrld_9727a095-38e9-4686-8dd8-dad8b6bc01af?apiKey=JlE5Jldo5Jibnk5O5hTx6XVqsJu4WJ26";
 		// To check name of user:
 		// var	url = "https://api.vrchat.cloud/api/1/users/usr_bc6d0b9f-b603-4734-b3d8-30def84d3151?apiKey=JlE5Jldo5Jibnk5O5hTx6XVqsJu4WJ26";
@@ -42,7 +45,7 @@ const make8x8ImageBufferWith4Colors = c=>{
 							request(
 								{
 									// url : "https://api.vrchat.cloud/api/1/worlds/wrld_9727a095-38e9-4686-8dd8-dad8b6bc01af/"+heading+"?apiKey=JlE5Jldo5Jibnk5O5hTx6XVqsJu4WJ26",
-									url : "https://api.vrchat.cloud/api/1/worlds/wrld_7e10376a-29b6-43af-ac5d-6eb72732e90c/"+heading+"?apiKey=JlE5Jldo5Jibnk5O5hTx6XVqsJu4WJ26",
+									url : "https://api.vrchat.cloud/api/1/worlds/wrld_925a290f-ec66-417e-b1ad-124c7db8068a/"+heading+"?apiKey=JlE5Jldo5Jibnk5O5hTx6XVqsJu4WJ26",
 									headers : {
 										"Authorization" : auth
 									}
@@ -216,6 +219,13 @@ const TimeInImage = function (app,path) {
 	this.onRequest = ()=>{};
 
 	app.get(path+"/:random", (req,res)=>{
+		
+		// if (req.query.world){
+			console.log("param")
+			console.log(req.params)
+			console.log("query")
+			console.log(req.query)
+		// }
 		this.onRequest(req);
 
 		res.header({"Content-Type": "image/png"});
@@ -277,7 +287,12 @@ const TimeInImage = function (app,path) {
 	});
 
 	app.get(path, (req,res)=>{
-		res.redirect(path+"/"+generateCharacters(8)+".png");
+		// console.log(req.params)
+		if (req.query.world){
+			console.log("Read world id as: " + req.query.world);
+			worldid = req.query.world;
+		}
+		res.redirect(path+"/"+generateCharacters(8)+".png"+('?world=' + worldid));
 	});
 }
 
