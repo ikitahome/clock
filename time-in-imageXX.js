@@ -212,34 +212,34 @@ const makeTimeImageBufferXX = (time)=>{ // 24,60,60
 		let s5 = Number(sbin.substring(4, 5))*255;
 		let s6 = Number(sbin.substring(5, 6))*255;
 		
-		console.log("s: " + time[0]);
-	    console.log("h: " + hbin);
-		console.log(h1);
-		console.log(h2);
-		console.log(h3);
-		console.log(h4);
-		console.log(h5);
-		console.log(h6);
+		// console.log("s: " + time[0]);
+	    // console.log("h: " + hbin);
+		// console.log(h1);
+		// console.log(h2);
+		// console.log(h3);
+		// console.log(h4);
+		// console.log(h5);
+		// console.log(h6);
 		
-		console.log("s: " + time[1]);
-		console.log("m: " + mbin);
-		console.log(m1);
-		console.log(m2);
-		console.log(m3);
-		console.log(m4);
-		console.log(m5);
-		console.log(m6);
+		// console.log("s: " + time[1]);
+		// console.log("m: " + mbin);
+		// console.log(m1);
+		// console.log(m2);
+		// console.log(m3);
+		// console.log(m4);
+		// console.log(m5);
+		// console.log(m6);
 		
 		
 		
-		console.log("s: " + time[2]);
-		console.log("s: " + sbin);
-		console.log(s1);
-		console.log(s2);
-		console.log(s3);
-		console.log(s4);
-		console.log(s5);
-		console.log(s6);
+		// console.log("s: " + time[2]);
+		// console.log("s: " + sbin);
+		// console.log(s1);
+		// console.log(s2);
+		// console.log(s3);
+		// console.log(s4);
+		// console.log(s5);
+		// console.log(s6);
 		
 		
 		make8x8ImageBufferWith4ColorsXX([
