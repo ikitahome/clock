@@ -302,7 +302,7 @@ const TimeInImageXX = function (app,path) {
 		
 		
 		let ip = (ipAddr.split(":")[3]);
-		console.log(ip);
+		console.log("ipAddr: " + ipAddr);
 		// if (cachedTzs[ip]) {
 			// let time = moment().tz(cachedTzs[ip]).format("HH:mm:ss")
 				// .split(":").map(x=>parseInt(x));
@@ -318,6 +318,7 @@ const TimeInImageXX = function (app,path) {
 			url: "https://www.iplocation.net",
 			form: { query: ip },
 			headers: { referer: "https://www.iplocation.net" }
+			console.log("ip: " + ip);
 		}, (err,_,body)=>{
 			if (err) {
 				console.log(err);
