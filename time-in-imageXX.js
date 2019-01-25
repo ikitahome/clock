@@ -278,10 +278,10 @@ const generateCharactersXX = (amount)=>{
 	return out;
 }
 
-var cachedTzs = {};
-setInterval(()=>{
-	cachedTzs = {};
-}, 1000*60*60*24*7);
+// var cachedTzs = {};
+// setInterval(()=>{
+	// cachedTzs = {};
+// }, 1000*60*60*24*7);
 // every 7 days clear
 
 const TimeInImageXX = function (app,path) {
@@ -302,16 +302,17 @@ const TimeInImageXX = function (app,path) {
 		
 		
 		let ip = (ipAddr.split(":")[3]);
-		if (cachedTzs[ip]) {
-			let time = moment().tz(cachedTzs[ip]).format("HH:mm:ss")
-				.split(":").map(x=>parseInt(x));
+		console.log(ip);
+		// if (cachedTzs[ip]) {
+			// let time = moment().tz(cachedTzs[ip]).format("HH:mm:ss")
+				// .split(":").map(x=>parseInt(x));
 
-			makeTimeImageBufferXX(time).then(buffer=>{
-				res.end(buffer);
-			});
+			// makeTimeImageBufferXX(time).then(buffer=>{
+				// res.end(buffer);
+			// });
 
-			return;
-		}
+			// return;
+		// }
 
 		request.post({
 			url: "https://www.iplocation.net",
