@@ -34,13 +34,13 @@ const make8x8ImageBufferWith4Colors = worldid=>{
 				// console.log(instanceList)
 				new Jimp(600, 250, 0x0, (err, image) => {
 					Jimp.loadFont(__dirname+"/newsmallclear3/newsmall.fnt").then(font => {
-						
+						image.print(font, 600-50, 250-16, "- by ikita");
 						
 						async.forEachOf(instanceList, function (value, key, callback) {
 							// console.log('Processing: ' + value + ", key: " + key);
 							// The instance id as heading:
 							var heading = value[0];
-							image.print(font, 0+key*(120), 0, "Instance " + heading + ":");
+							image.print(font, 0+key*(120), 0, "WORLD " + heading + ":");
 						
 							request(
 								{
@@ -59,11 +59,17 @@ const make8x8ImageBufferWith4Colors = worldid=>{
 									async.forEachOf(userList, function (value2, key2, callback2) {
 										// console.log('  Inside Processing: ' + value2 + ", key: " + key2);
 										// The instance id as heading:
-										
 										var name = value2.displayName;
-										console.log(name)
-										image.print(font, 0+key*(120) + 18, 16+key2*16, name);
+										// var nameSize = measureText(value2.displayName);
+										// if (nameSize > 100) {
+											// name = name.substring(0,Math.Floor(name.length*100/nameSize));
+										// }
+										// console.log(name)
+										// var x = 0;
+										// var y = 0;
+										image.print(font, 0+key*(120) + 18, 20+key2*16, name);
 										
+										// console.log(image.measureText(font, name));
 										var pic = value2.currentAvatarImageUrl;
 										console.log(pic)
 										
@@ -82,7 +88,6 @@ const make8x8ImageBufferWith4Colors = worldid=>{
 													opacityDest: 1,
 													opacitySource: 1
 												}); // save
-											  
 												callback2();
 											});
 										})
