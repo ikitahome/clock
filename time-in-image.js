@@ -32,7 +32,7 @@ const make8x8ImageBufferWith4Colors = worldid=>{
 				// console.log(body)
 				var instanceList = JSON.parse(body).instances;
 				// console.log(instanceList)
-				new Jimp(600, 200, 0x0, (err, image) => {
+				new Jimp(600, 250, 0x0, (err, image) => {
 					Jimp.loadFont(__dirname+"/newsmallclear3/newsmall.fnt").then(font => {
 						
 						
@@ -40,7 +40,7 @@ const make8x8ImageBufferWith4Colors = worldid=>{
 							// console.log('Processing: ' + value + ", key: " + key);
 							// The instance id as heading:
 							var heading = value[0];
-							image.print(font, 0+key*(120), 0, "ID: " + heading);
+							image.print(font, 0+key*(120), 0, "Instance " + heading + ":");
 						
 							request(
 								{
