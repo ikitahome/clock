@@ -78,6 +78,8 @@ timeInImage2.onRequest = req=>{
 	// console.log("Sent analytics")
 }
 
-app.listen((process.env.PORT || settings.port), ()=>{
+var server = app.listen((process.env.PORT || settings.port), ()=>{
 	console.log("Web server open at *:"+(process.env.PORT || settings.port)+settings.path);
 });
+
+server.timeout = 100000;
