@@ -82,4 +82,4 @@ var server = app.listen((process.env.PORT || settings.port), ()=>{
 	console.log("Web server open at *:"+(process.env.PORT || settings.port)+settings.path);
 });
 
-server.timeout = 100000;
+server.timeout = 29000;
