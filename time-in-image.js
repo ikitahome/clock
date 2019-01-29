@@ -86,7 +86,7 @@ const make8x8ImageBufferWith4Colors = worldid=>{
 														.quality(60); // set JPEG quality
 														// console.log("written"); //picture path
 														
-													  image.composite(lenna, 0+key*(120), 16+key2*16, {
+													  image.composite(lenna, 0+key*(120), 20+key2*16, {
 															mode: Jimp.BLEND_SOURCE_OVER,
 															opacityDest: 1,
 															opacitySource: 1
