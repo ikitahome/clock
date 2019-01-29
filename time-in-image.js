@@ -120,31 +120,6 @@ const make8x8ImageBufferWith4Colors = worldid=>{
 }
 
 const makeTimeImageBuffer = (worldid)=>{ // 24,60,60
-
-
-	// Jimp.read('cache.png', (err, lenna) => {
-	  // if (err) {
-		  // print("ERROR reading cache.png")
-	  // };
-	  // lenna
-		// .resize(256, 256) // resize
-		// .quality(60) // set JPEG quality
-		// .greyscale() // set greyscale
-		// .write('lena-small-bw.jpg'); // save
-	// });
-	
-
-	
-
-	// Jimp.read('cache.jpg')
-	// .then(image => {
-		// resolve(image.getBufferAsync(Jimp.MIME_PNG));
-	// })
-	// .catch(err => {
-		// console.log('READ IMAGE ERROR');
-	// });
-	
-
 	return new Promise((resolve,reject)=>{	        
 	
 		fs.access(worldid + '.png', (err) => {
@@ -219,70 +194,46 @@ const TimeInImage = function (app,path) {
 	var worldid = "";
 	app.get(path+"/:random", (req,res)=>{
 		
-		// if (req.query.world){
-			console.log("param")
-			console.log(req.params)
-			console.log("query")
-			console.log(req.query)
-		// }
-		this.onRequest(req);
+		try {
+			// if (req.query.world){
+				console.log("param")
+				console.log(req.params)
+				console.log("query")
+				console.log(req.query)
+			// }
+			this.onRequest(req);
 
-		res.header({"Content-Type": "image/png"});
+			res.header({"Content-Type": "image/png"});
 
-		//let ip = (req.ip.split(":")[3]);
-		let ip = req.headers["x-forwarded-for"];
-		if (ip){
-			var list = ip.split(",");
-			ip = list[list.length-1];
-		} else {
-			ip = req.connection.remoteAddress;
-		}
-		
-		
-		if (true) {
-			// let time = moment().tz(cachedTzs[ip]).format("HH:mm:ss")
-				// .split(":").map(x=>parseInt(x));
+			//let ip = (req.ip.split(":")[3]);
+			let ip = req.headers["x-forwarded-for"];
+			if (ip){
+				var list = ip.split(",");
+				ip = list[list.length-1];
+			} else {
+				ip = req.connection.remoteAddress;
+			}
+			
+			
+			if (true) {
+				// let time = moment().tz(cachedTzs[ip]).format("HH:mm:ss")
+					// .split(":").map(x=>parseInt(x));
 
-			makeTimeImageBuffer(req.query.world).then(buffer=>{
-				res.end(buffer);
-			});
+				makeTimeImageBuffer(req.query.world).then(buffer=>{
+					res.end(buffer);
+				});
 
+				return;
+			}
+		} catch (error) {
+			console.log("error");
+			res.status(500).json({ error: error.toString() });
+			
 			return;
 		}
+		
 
-		// request.post({
-			// url: "https://www.iplocation.net",
-			// form: { query: ip },
-			// headers: { referer: "https://www.iplocation.net" }
-		// }, (err,_,body)=>{
-			// if (err) {
-				// console.log(err);
-				// return res.send();
-			// }
 
-			// try {
-				// body = body
-					// .split("ipinfo.io</a>")[1].split("</table>")[0]
-					// .split("<tr>")[4].split("<td>");
-
-				// let tz = tzlookup(
-					// body[3].split("</")[0],
-					// body[4].split("</")[0]
-				// );
-
-				// cachedTzs[ip] = tz;
-
-				// // let time = moment().tz(tz).format("HH:mm:ss")
-					// // .split(":").map(x=>parseInt(x));
-
-				// makeTimeImageBuffer(req.query.world).then(buffer=>{
-					// res.end(buffer);
-				// });
-			// } catch(err) {
-				// console.log(err);
-				// res.send();
-			// }
-		// });
 	});
 
 	app.get(path, (req,res)=>{
