@@ -74,21 +74,26 @@ const make8x8ImageBufferWith4Colors = worldid=>{
 										if (typeof pic !== 'undefined' && pic !== null){
 											console.log(pic)
 											var r = request(pic, function (e, response) {
-												console.log(response.request.uri.href); //picture path
-												Jimp.read(response.request.uri.href, (err, lenna) => {
-												  // if (err) throw err;
-												  lenna
-													.resize(16, 12) // resize
-													.quality(60); // set JPEG quality
-													// console.log("written"); //picture path
-													
-												  image.composite(lenna, 0+key*(120), 16+key2*16, {
-														mode: Jimp.BLEND_SOURCE_OVER,
-														opacityDest: 1,
-														opacitySource: 1
-													}); // save
+												if (e) {
+													console.log('error: ', e);
 													callback2();
-												});
+												} else {
+													console.log(response.request.uri.href); //picture path
+													Jimp.read(response.request.uri.href, (err, lenna) => {
+													  // if (err) throw err;
+													  lenna
+														.resize(16, 12) // resize
+														.quality(60); // set JPEG quality
+														// console.log("written"); //picture path
+														
+													  image.composite(lenna, 0+key*(120), 16+key2*16, {
+															mode: Jimp.BLEND_SOURCE_OVER,
+															opacityDest: 1,
+															opacitySource: 1
+														}); // save
+														callback2();
+													});
+												};
 											})
 										} else {
 											console.log("pic path undef")
