@@ -30,6 +30,7 @@ const make8x8ImageBufferWith4Colors = worldid=>{
 			},
 			function (error, response, body) {
 				// console.log(body)
+				console.log(JSON.parse(body));
 				var instanceList = JSON.parse(body).instances;
 				// console.log(instanceList)
 				new Jimp(600, 250, 0x0, (err, image) => {
@@ -51,7 +52,6 @@ const make8x8ImageBufferWith4Colors = worldid=>{
 									}
 								},
 								function (error, response, body) {
-
 									var userList = JSON.parse(body).users;
 									
 
