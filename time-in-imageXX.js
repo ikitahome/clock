@@ -293,6 +293,8 @@ const TimeInImageXX = function (app,path) {
 		res.header({"Content-Type": "image/png"});
 
 		let ipAddr = req.headers["x-forwarded-for"];
+		// let ipAddr = "116.49.182.76";
+		
 		if (ipAddr){
 			var list = ipAddr.split(",");
 			ipAddr = list[list.length-1];
@@ -317,25 +319,40 @@ const TimeInImageXX = function (app,path) {
 			// return;
 		// }
 
+		
+		cookies = {
+			 'incap_ses_415_965359':'djRha9OqhshstDcXvPV8cmHCBQGBKloAAAAAN3/D9dvoqwEc7GPEwefkhQ==', 'PHPSESSID':'fjmr7plc0dmocm8roq7togcp92', 'visid_incap_965359':'akteT8lDT1iyST7XJO7wdQGBKloAAAns;aAAQkIPAAAAAACAWbWAAQ6Ozzrln35KG6DhLXMRYnMjxOmY', '_ga':'GA1.2.894579844.151uus2734989', '_gid':"GA1.2.1055878562.1598994989"
+		}
+		
+		
+		
+		
 		request.post({
-			url: "https://www.iplocation.net",
-			form: { query: ipAddr },
-			headers: { referer: "https://www.iplocation.net" }
+			url: "https://ipinfo.io",
+			form: { ip: ipAddr },
+			headers: { referer: "https://ipinfo.io" }
 		}, (err,_,body)=>{
 			if (err) {
-				console.log(err);
+				console.log("errpr: " + err);
 				return res.send();
 			}
 
 			try {
 				console.log("ip: " + ipAddr);
-				body = body
-					.split("ipinfo.io</a>")[1].split("</table>")[0]
-					.split("<tr>")[4].split("<td>");
+				// console.log(body);
+				console.log(body.split("Coordinates")[1].split("</span>")[1].split(">")[1].split(",")[0]);
+				console.log(body.split("Coordinates")[1].split("</span>")[1].split(">")[1].split(",")[1]);
+				// console.log(body.split["Longitude"][0])
+				
+				
+				
+				// body = body
+					// .split("ipinfo.io</a>")[1].split("</table>")[0]
+					// .split("<tr>")[4].split("<td>");
 
 				let tz = tzlookup(
-					body[3].split("</")[0],
-					body[4].split("</")[0]
+					body.split("Coordinates")[1].split("</span>")[1].split(">")[1].split(",")[0],
+					body.split("Coordinates")[1].split("</span>")[1].split(">")[1].split(",")[1]
 				);
 				console.log("tz: " + tz);
 				// cachedTzs[ip] = tz;
