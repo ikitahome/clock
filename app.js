@@ -14,9 +14,9 @@ const TimeInImageXX = require(__dirname+"/time-in-imageXX");
 
 var app = express();
 var ua = require('universal-analytics');
-var timeInImage = new TimeInImage(app, settings.path2);
+var timeInImage = new TimeInImage(app, settings.path);
 // No Tracking
-var timeInImage2 = new TimeInImage(app, settings.path);
+var timeInImage2 = new TimeInImage(app, settings.path2);
 // for the actual time
 var timeInImageXX = new TimeInImageXX(app, settings.path3);
 
