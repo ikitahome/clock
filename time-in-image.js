@@ -70,7 +70,8 @@ const make8x8ImageBufferWith4Colors = worldid=>{
 										
 										// console.log(image.measureText(font, name));
 										var pic = value2.currentAvatarImageUrl;
-										if (typeof pic !== 'undefined' && pic !== null){
+										callback2();
+/* 										if (typeof pic !== 'undefined' && pic !== null){
 											console.log(pic)
 											var r = request(pic, function (e, response) {
 												if (e) {
@@ -97,7 +98,7 @@ const make8x8ImageBufferWith4Colors = worldid=>{
 										} else {
 											console.log("pic path undef")
 											callback2();
-										};
+										}; */
 
 									}, function (err) {
 										console.log('  Current instance processed.');
