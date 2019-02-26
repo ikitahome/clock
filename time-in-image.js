@@ -54,7 +54,7 @@ const make8x8ImageBufferWith4Colors = worldid=>{
 								},
 								function (error, response, body) {
 									var userList = JSON.parse(body).users;
-									userList.length = Math.min(instanceList.length,15);
+									userList.length = Math.min(userList.length,15);
 									async.forEachOf(userList, function (value2, key2, callback2) {
 										// console.log('  Inside Processing: ' + value2 + ", key: " + key2);
 										// The instance id as heading:
