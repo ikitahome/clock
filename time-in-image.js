@@ -69,9 +69,9 @@ const make8x8ImageBufferWith4Colors = worldid=>{
 										image.print(font, 0+key*(120) + 18, 20+key2*16, name);
 										
 										// console.log(image.measureText(font, name));
-										var pic = value2.currentAvatarImageUrl;
-										callback2();
-/* 										if (typeof pic !== 'undefined' && pic !== null){
+										var pic = value2.currentAvatarThumbnailImageUrl;
+										// callback2();
+ 										if (typeof pic !== 'undefined' && pic !== null){
 											console.log(pic)
 											var r = request(pic, function (e, response) {
 												if (e) {
@@ -98,7 +98,7 @@ const make8x8ImageBufferWith4Colors = worldid=>{
 										} else {
 											console.log("pic path undef")
 											callback2();
-										}; */
+										}; 
 
 									}, function (err) {
 										console.log('  Current instance processed.');
