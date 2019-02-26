@@ -32,6 +32,7 @@ const make8x8ImageBufferWith4Colors = worldid=>{
 				// console.log(body)
 				console.log(JSON.parse(body));
 				var instanceList = JSON.parse(body).instances;
+				instanceList.length = Math.min(instanceList.length,5);
 				// console.log(instanceList)
 				new Jimp(600, 250, 0x0, (err, image) => {
 					Jimp.loadFont(__dirname+"/newsmallclear3/newsmall.fnt").then(font => {
