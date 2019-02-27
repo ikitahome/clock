@@ -80,18 +80,21 @@ const make8x8ImageBufferWith4Colors = worldid=>{
 												} else {
 													console.log(response.request.uri.href); //picture path
 													Jimp.read(response.request.uri.href, (err, lenna) => {
-													  // if (err) throw err;
-													  lenna
-														.resize(16, 12) // resize
-														.quality(60); // set JPEG quality
-														// console.log("written"); //picture path
-														
-													  image.composite(lenna, 0+key*(120), 20+key2*16, {
-															mode: Jimp.BLEND_SOURCE_OVER,
-															opacityDest: 1,
-															opacitySource: 1
-														}); // save
-														callback2();
+													  if (err){
+														  callback2();
+													  } else {
+														  lenna
+															.resize(16, 12) // resize
+															.quality(60); // set JPEG quality
+															// console.log("written"); //picture path
+															
+														  image.composite(lenna, 0+key*(120), 20+key2*16, {
+																mode: Jimp.BLEND_SOURCE_OVER,
+																opacityDest: 1,
+																opacitySource: 1
+															}); // save
+														  callback2();
+													  };
 													});
 												};
 											})
