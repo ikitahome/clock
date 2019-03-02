@@ -37,7 +37,8 @@ const make8x8ImageBufferWith4Colors = worldid=>{
 				new Jimp(600, 250, 0x0, (err, image) => {
 					Jimp.loadFont(__dirname+"/newsmallclear3/newsmall.fnt").then(font => {
 						image.print(font, 600-50, 250-16, "- by ikita");
-						
+						image.print(font, 600-500, 250-130, "VRChat having issues listing instances for us right now");
+						image.print(font, 600-500, 250-118, "We will be back shortly");
 						async.forEachOf(instanceList, function (value, key, callback) {
 							// console.log('Processing: ' + value + ", key: " + key);
 							// The instance id as heading:
