@@ -15,33 +15,50 @@ const make8x8ImageBufferWith4Colors = worldid=>{
 		var	password = "ipq58WP5";
 		var count = Math.random();
 		
-		if (count > 0.94){
+		if (count > 0.95){
 			username = "armadiliea";
-		} else if (count > 0.88){
+		} else if (count > 0.9){
 			username = "armadilloe";
-		} else if (count > 0.80){
+		} else if (count > 0.86){
 			username = "LamKee2";
-		} else if (count > 0.7){
+		} else if (count > 0.82){
 			username = "moonkay";
-		} else if (count > 0.6){
+		} else if (count > 0.77){
 			username = "Gorao";
-		} else if (count > 0.5){
+		} else if (count > 0.74){
 			username = "umaro";
-		} else if (count > 0.4){
+		} else if (count > 0.7){
 			username = "umotim";
-		} else if (count > 0.3){
+		} else if (count > 0.65){
 			username = "postmanmiller";
-		} else if (count > 0.2){
+		} else if (count > 0.6){
 			username = "opomarim";
-		} else if (count > 0.14) {
+		} else if (count > 0.55) {
 			username = "rushkill";
-		} else if (count > 0.8){
+		} else if (count > 0.5){
 			username = "karmataser";
-		} else if (count >= 0){
+		} else if (count >= 0.45){
 			username = "matame";
+		} else if (count >= 0.4){
+			username = "imomi";
+		} else if (count >= 0.35){
+			username = "matame";
+		} else if (count >= 0.3){
+			username = "poupa";
+		} else if (count >= 0.25){
+			username = "atyath";
+		} else if (count >= 0.2){
+			username = "takaleth";
+		} else if (count >= 0.15){
+			username = "cihyhy";
+		} else if (count >= 0.1){
+			username = "bocac";
+		} else if (count >= 0.05){
+			username = "tupotin";
+		} else if (count >= 0){
+			username = "fenil";
 		};
 
-		
 		
 		
 		
