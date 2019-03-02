@@ -20,8 +20,16 @@ var timeInImage2 = new TimeInImage(app, settings.path2);
 // for the actual time
 var timeInImageXX = new TimeInImageXX(app, settings.path3);
 
-
-
+global.cookie1;
+global.cookie2;
+global.cookie3;
+global.cookie4;
+global.cookie5;
+global.cookie6;
+global.cookie7;
+global.cookie8;
+global.cookie9;
+global.cookie0;
 
 timeInImageXX.onRequest = req=>{
 	// let ip = req.ip.split(":")[3];

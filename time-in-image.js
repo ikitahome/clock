@@ -11,17 +11,39 @@ var util = require('util')
 const make8x8ImageBufferWith4Colors = worldid=>{
 	return new Promise((resolve,reject)=>{
 		//:path: /api/1/worlds/wrld_a8cbf00c-f2d9-43a6-b257-675be512a02d/publish?apiKey=JlE5Jldo5Jibnk5O5hTx6XVqsJu4WJ26
-		var username = "worldapi";
+		var username = "armadiliea";
 		var	password = "ipq58WP5";
 		var count = Math.random();
 		
-		if (count > 0.6){
-			username = "ikit";
-			password = "ipq58WP5";
+		if (count > 0.94){
+			username = "armadiliea";
+		} else if (count > 0.88){
+			username = "armadilloe";
+		} else if (count > 0.80){
+			username = "LamKee2";
+		} else if (count > 0.7){
+			username = "moonkay";
+		} else if (count > 0.6){
+			username = "Gorao";
+		} else if (count > 0.5){
+			username = "umaro";
+		} else if (count > 0.4){
+			username = "umotim";
 		} else if (count > 0.3){
-			username = "worldapi2";
-			password = "ipq58WP5";
+			username = "postmanmiller";
+		} else if (count > 0.2){
+			username = "opomarim";
+		} else if (count > 0.14) {
+			username = "rushkill";
+		} else if (count > 0.8){
+			username = "karmataser";
+		} else if (count >= 0){
+			username = "matame";
 		};
+
+		
+		
+		
 		
 		console.log("Account: " + username);
 		
@@ -56,8 +78,9 @@ const make8x8ImageBufferWith4Colors = worldid=>{
 						image.print(font, 600-600, 250-16, "*cached and updated once every 120 seconds");
 						image.print(font, 600-50, 250-16, "- by ikita");
 						if (instanceList.length == 0){
-							image.print(font, 600-400, 250-170, "VRChat having issues listing instances for us right now");
-							image.print(font, 600-400, 250-158, "We will be back shortly");
+							console.log("Account FAIL !!!!! : " + username);
+							image.print(font, 600-440, 250-170, "VRChat having issues listing instances for us right now");
+							image.print(font, 600-440, 250-158, "We will be back shortly");
 						};
 						async.forEachOf(instanceList, function (value, key, callback) {
 							// console.log('Processing: ' + value + ", key: " + key);
