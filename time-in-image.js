@@ -10,10 +10,16 @@ var util = require('util')
 
 const make8x8ImageBufferWith4Colors = worldid=>{
 	return new Promise((resolve,reject)=>{
-
-		var username = "ikitahome";
-		var	password = "ipq58WP6";
-		var	url = "https://api.vrchat.cloud/api/1/worlds/" + worldid + "?apiKey=JlE5Jldo5Jibnk5O5hTx6XVqsJu4WJ26";
+		//:path: /api/1/worlds/wrld_a8cbf00c-f2d9-43a6-b257-675be512a02d/publish?apiKey=JlE5Jldo5Jibnk5O5hTx6XVqsJu4WJ26
+		var username = "worldapi";
+		var	password = "ipq58WP5";
+		if (Math.random() > 0.5){
+			username = "ikit";
+			password = "ipq58WP5";
+		};
+		
+		
+		var	url = "https://vrchat.net/api/1/worlds/" + worldid + "?apiKey=JlE5Jldo5Jibnk5O5hTx6XVqsJu4WJ26";
 		// var	url = "https://api.vrchat.cloud/api/1/worlds/wrld_9727a095-38e9-4686-8dd8-dad8b6bc01af?apiKey=JlE5Jldo5Jibnk5O5hTx6XVqsJu4WJ26";
 		// To check name of user:
 		// var	url = "https://api.vrchat.cloud/api/1/users/usr_bc6d0b9f-b603-4734-b3d8-30def84d3151?apiKey=JlE5Jldo5Jibnk5O5hTx6XVqsJu4WJ26";
@@ -25,11 +31,16 @@ const make8x8ImageBufferWith4Colors = worldid=>{
 			{
 				url : url,
 				headers : {
-					"Authorization" : auth
+					"Authorization" : auth,
+					"Referrer" : "https://vrchat.net/home/world/wrld_a8cbf00c-f2d9-43a6-b257-675be512a02d",
+					"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.119 Safari/537.36",
+					
 				}
 			},
 			function (error, response, body) {
-				// console.log(body)
+				console.log("response.header");
+				console.log(response.headers)
+				// console.log(error)
 				console.log(JSON.parse(body));
 				var instanceList = JSON.parse(body).instances;
 				instanceList.length = Math.min(instanceList.length,5);
@@ -37,8 +48,10 @@ const make8x8ImageBufferWith4Colors = worldid=>{
 				new Jimp(600, 250, 0x0, (err, image) => {
 					Jimp.loadFont(__dirname+"/newsmallclear3/newsmall.fnt").then(font => {
 						image.print(font, 600-50, 250-16, "- by ikita");
-						image.print(font, 600-400, 250-170, "VRChat having issues listing instances for us right now");
-						image.print(font, 600-400, 250-158, "We will be back shortly");
+						if (instanceList.length == 0){
+							image.print(font, 600-400, 250-170, "VRChat having issues listing instances for us right now");
+							image.print(font, 600-400, 250-158, "We will be back shortly");
+						};
 						async.forEachOf(instanceList, function (value, key, callback) {
 							// console.log('Processing: ' + value + ", key: " + key);
 							// The instance id as heading:
@@ -48,11 +61,15 @@ const make8x8ImageBufferWith4Colors = worldid=>{
 							request(
 								{
 									// url : "https://api.vrchat.cloud/api/1/worlds/wrld_9727a095-38e9-4686-8dd8-dad8b6bc01af/"+heading+"?apiKey=JlE5Jldo5Jibnk5O5hTx6XVqsJu4WJ26",
-									url : "https://api.vrchat.cloud/api/1/worlds/" + worldid + "/"+heading+"?apiKey=JlE5Jldo5Jibnk5O5hTx6XVqsJu4WJ26",
+									url : "https://vrchat.net/api/1/worlds/" + worldid + "/"+heading+"?apiKey=JlE5Jldo5Jibnk5O5hTx6XVqsJu4WJ26",
 									headers : {
-										"Authorization" : auth
+										"Authorization" : auth,
+										"Referrer" : "https://vrchat.net/home/world/wrld_a8cbf00c-f2d9-43a6-b257-675be512a02d",
+										"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.119 Safari/537.36",
+										
 									}
 								},
+								
 								function (error, response, body) {
 									var userList = JSON.parse(body).users;
 									userList.length = Math.min(userList.length,15);
