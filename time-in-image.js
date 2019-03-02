@@ -13,12 +13,17 @@ const make8x8ImageBufferWith4Colors = worldid=>{
 		//:path: /api/1/worlds/wrld_a8cbf00c-f2d9-43a6-b257-675be512a02d/publish?apiKey=JlE5Jldo5Jibnk5O5hTx6XVqsJu4WJ26
 		var username = "worldapi";
 		var	password = "ipq58WP5";
+		var count = Math.random();
 		
-		
-		if (Math.random() > 0.5){
+		if (count > 0.6){
 			username = "ikit";
 			password = "ipq58WP5";
+		} else if (count > 0.3){
+			username = "worldapi2";
+			password = "ipq58WP5";
 		};
+		
+		console.log("Account: " + username);
 		
 		var	url = "https://vrchat.net/api/1/worlds/" + worldid + "?apiKey=JlE5Jldo5Jibnk5O5hTx6XVqsJu4WJ26";
 		// var	url = "https://api.vrchat.cloud/api/1/worlds/wrld_9727a095-38e9-4686-8dd8-dad8b6bc01af?apiKey=JlE5Jldo5Jibnk5O5hTx6XVqsJu4WJ26";
