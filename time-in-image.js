@@ -13,11 +13,12 @@ const make8x8ImageBufferWith4Colors = worldid=>{
 		//:path: /api/1/worlds/wrld_a8cbf00c-f2d9-43a6-b257-675be512a02d/publish?apiKey=JlE5Jldo5Jibnk5O5hTx6XVqsJu4WJ26
 		var username = "worldapi";
 		var	password = "ipq58WP5";
+		
+		
 		if (Math.random() > 0.5){
 			username = "ikit";
 			password = "ipq58WP5";
 		};
-		
 		
 		var	url = "https://vrchat.net/api/1/worlds/" + worldid + "?apiKey=JlE5Jldo5Jibnk5O5hTx6XVqsJu4WJ26";
 		// var	url = "https://api.vrchat.cloud/api/1/worlds/wrld_9727a095-38e9-4686-8dd8-dad8b6bc01af?apiKey=JlE5Jldo5Jibnk5O5hTx6XVqsJu4WJ26";
@@ -47,6 +48,7 @@ const make8x8ImageBufferWith4Colors = worldid=>{
 				// console.log(instanceList)
 				new Jimp(600, 250, 0x0, (err, image) => {
 					Jimp.loadFont(__dirname+"/newsmallclear3/newsmall.fnt").then(font => {
+						image.print(font, 600-550, 250-16, "Cached and updated once every 120 seconds");
 						image.print(font, 600-50, 250-16, "- by ikita");
 						if (instanceList.length == 0){
 							image.print(font, 600-400, 250-170, "VRChat having issues listing instances for us right now");
