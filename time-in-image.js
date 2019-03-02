@@ -48,7 +48,7 @@ const make8x8ImageBufferWith4Colors = worldid=>{
 				// console.log(instanceList)
 				new Jimp(600, 250, 0x0, (err, image) => {
 					Jimp.loadFont(__dirname+"/newsmallclear3/newsmall.fnt").then(font => {
-						image.print(font, 600-550, 250-16, "Cached and updated once every 120 seconds");
+						image.print(font, 600-600, 250-16, "*cached and updated once every 120 seconds");
 						image.print(font, 600-50, 250-16, "- by ikita");
 						if (instanceList.length == 0){
 							image.print(font, 600-400, 250-170, "VRChat having issues listing instances for us right now");
