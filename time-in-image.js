@@ -38,11 +38,11 @@ const make8x8ImageBufferWith4Colors = worldid=>{
 		} else if (count > 0.5){
 			username = "karmataser";
 		} else if (count >= 0.45){
-			username = "matame";
+			username = "opatm";
 		} else if (count >= 0.4){
 			username = "imomi";
 		} else if (count >= 0.35){
-			username = "matame";
+			username = "koratn";
 		} else if (count >= 0.3){
 			username = "poupa";
 		} else if (count >= 0.25){
