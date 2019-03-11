@@ -83,13 +83,13 @@ const make8x8ImageBufferWith4Colors = worldid=>{
 				}
 			},
 			function (error, response, body) {
-				console.log("response.header");
-				console.log(response.headers)
+				// console.log("response.header");
+				// console.log(response.headers)
 				// console.log(error)
-				console.log(JSON.parse(body));
+				// console.log(JSON.parse(body));
 				var instanceList = JSON.parse(body).instances;
 				instanceList.length = Math.min(instanceList.length,5);
-				// console.log(instanceList)
+				console.log(instanceList)
 				new Jimp(600, 250, 0x0, (err, image) => {
 					Jimp.loadFont(__dirname+"/newsmallclear3/newsmall.fnt").then(font => {
 						image.print(font, 600-600, 250-16, "*cached and updated once every 120 seconds");
@@ -137,7 +137,7 @@ const make8x8ImageBufferWith4Colors = worldid=>{
 										var pic = value2.currentAvatarThumbnailImageUrl;
 										// callback2();
  										if (typeof pic !== 'undefined' && pic !== null){
-											console.log(pic)
+											// console.log(pic)
 											var r = request(pic, function (e, response) {
 												if (e) {
 													console.log('error: ', e);
