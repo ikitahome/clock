@@ -293,6 +293,7 @@ const TimeInImageXX = function (app,path) {
 		res.header({"Content-Type": "image/png"});
 
 		let ipAddr = req.headers["x-forwarded-for"];
+		console.log("req headers: " + ipAddr);
 		// let ipAddr = "116.49.182.76";
 		
 		if (ipAddr){
