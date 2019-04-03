@@ -124,6 +124,8 @@ const make8x8ImageBufferWith4Colors = worldid=>{
 										console.log("body: " + body);
 										console.log("response: " + response);
 										console.log("error: " + error);
+										console.log('  Current instance SKIPPED.');
+										callback();
 									} else {
 										console.log("error: " + error);
 										console.log("body: " + body);
