@@ -118,60 +118,69 @@ const make8x8ImageBufferWith4Colors = worldid=>{
 								},
 								
 								function (error, response, body) {
-									var userList = JSON.parse(body).users;
-									userList.length = Math.min(userList.length,15);
-									async.forEachOf(userList, function (value2, key2, callback2) {
-										// console.log('  Inside Processing: ' + value2 + ", key: " + key2);
-										// The instance id as heading:
-										var name = value2.displayName;
-										// var nameSize = measureText(value2.displayName);
-										// if (nameSize > 100) {
-											// name = name.substring(0,Math.Floor(name.length*100/nameSize));
-										// }
-										// console.log(name)
-										// var x = 0;
-										// var y = 0;
-										image.print(font, 0+key*(120) + 18, 20+key2*16, name);
-										
-										// console.log(image.measureText(font, name));
-										var pic = value2.currentAvatarThumbnailImageUrl;
-										// callback2();
- 										if (typeof pic !== 'undefined' && pic !== null){
-											// console.log(pic)
-											var r = request(pic, function (e, response) {
-												if (e) {
-													console.log('error: ', e);
-													callback2();
-												} else {
-													console.log(response.request.uri.href); //picture path
-													Jimp.read(response.request.uri.href, (err, lenna) => {
-													  if (err){
-														  callback2();
-													  } else {
-														  lenna
-															.resize(16, 12) // resize
-															.quality(60); // set JPEG quality
-															// console.log("written"); //picture path
-															
-														  image.composite(lenna, 0+key*(120), 20+key2*16, {
-																mode: Jimp.BLEND_SOURCE_OVER,
-																opacityDest: 1,
-																opacitySource: 1
-															}); // save
-														  callback2();
-													  };
-													});
-												};
-											})
-										} else {
-											console.log("pic path undef")
-											callback2();
-										}; 
+									//CHeck if body is normal
+									if (body.length < 20){
+										console.log("Abnormal");
+										console.log("body: " + body);
+										console.log("response: " + response);
+										console.log("error: " + error);
+									} else {
+										var userList = JSON.parse(body).users;
+										userList.length = Math.min(userList.length,15);
+										async.forEachOf(userList, function (value2, key2, callback2) {
+											// console.log('  Inside Processing: ' + value2 + ", key: " + key2);
+											// The instance id as heading:
+											var name = value2.displayName;
+											// var nameSize = measureText(value2.displayName);
+											// if (nameSize > 100) {
+												// name = name.substring(0,Math.Floor(name.length*100/nameSize));
+											// }
+											// console.log(name)
+											// var x = 0;
+											// var y = 0;
+											image.print(font, 0+key*(120) + 18, 20+key2*16, name);
+											
+											// console.log(image.measureText(font, name));
+											var pic = value2.currentAvatarThumbnailImageUrl;
+											// callback2();
+											if (typeof pic !== 'undefined' && pic !== null){
+												// console.log(pic)
+												var r = request(pic, function (e, response) {
+													if (e) {
+														console.log('error: ', e);
+														callback2();
+													} else {
+														console.log(response.request.uri.href); //picture path
+														Jimp.read(response.request.uri.href, (err, lenna) => {
+														  if (err){
+															  callback2();
+														  } else {
+															  lenna
+																.resize(16, 12) // resize
+																.quality(60); // set JPEG quality
+																// console.log("written"); //picture path
+																
+															  image.composite(lenna, 0+key*(120), 20+key2*16, {
+																	mode: Jimp.BLEND_SOURCE_OVER,
+																	opacityDest: 1,
+																	opacitySource: 1
+																}); // save
+															  callback2();
+														  };
+														});
+													};
+												})
+											} else {
+												console.log("pic path undef")
+												callback2();
+											}; 
 
-									}, function (err) {
-										console.log('  Current instance processed.');
-										callback();
-									});
+										}, function (err) {
+											console.log('  Current instance processed.');
+											callback();
+										});
+									}
+
 									
 								}
 							);
