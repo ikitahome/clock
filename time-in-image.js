@@ -150,7 +150,7 @@ const make8x8ImageBufferWith4Colors = worldid=>{
 														console.log('error: ', e);
 														callback2();
 													} else {
-														console.log(response.request.uri.href); //picture path
+														// console.log(response.request.uri.href); //picture path
 														Jimp.read(response.request.uri.href, (err, lenna) => {
 														  if (err){
 															  callback2();
