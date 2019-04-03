@@ -119,7 +119,7 @@ const make8x8ImageBufferWith4Colors = worldid=>{
 								
 								function (error, response, body) {
 									//CHeck if body is normal
-									if (body.length < 20){
+									if (body.search("Internal Server Error") >= 0 ){
 										console.log("Abnormal");
 										console.log("body: " + body);
 										console.log("response: " + response);
