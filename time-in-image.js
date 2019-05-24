@@ -89,7 +89,7 @@ const make8x8ImageBufferWith4Colors = worldid=>{
 				// console.log(JSON.parse(body));
 				var instanceList = JSON.parse(body).instances;
 				instanceList.length = Math.min(instanceList.length,5);
-				console.log(instanceList)
+				console.log("instanceList: " + instanceList)
 				new Jimp(600, 250, 0x0, (err, image) => {
 					Jimp.loadFont(__dirname+"/newsmallclear3/newsmall.fnt").then(font => {
 						image.print(font, 600-600, 250-16, "*cached and updated once every 120 seconds");
@@ -104,7 +104,7 @@ const make8x8ImageBufferWith4Colors = worldid=>{
 							// The instance id as heading:
 							var heading = value[0];
 							image.print(font, 0+key*(120), 0, "WORLD " + heading + ":");
-						
+							console.log("url: " + "https://vrchat.net/api/1/worlds/" + worldid + "/"+heading+"?apiKey=JlE5Jldo5Jibnk5O5hTx6XVqsJu4WJ26")
 							request(
 								{
 									// url : "https://api.vrchat.cloud/api/1/worlds/wrld_9727a095-38e9-4686-8dd8-dad8b6bc01af/"+heading+"?apiKey=JlE5Jldo5Jibnk5O5hTx6XVqsJu4WJ26",
@@ -126,10 +126,14 @@ const make8x8ImageBufferWith4Colors = worldid=>{
 										console.log("error: " + error);
 										console.log('  Current instance SKIPPED.');
 										callback();
+									} else if (body.search("Invalid Admin Credentials") >= 0) {
+										image.print(font, 600-440, 250-150, "VRChat having issues listing instances for us right now");
+										callback();
 									} else {
 										console.log("error: " + error);
 										console.log("body: " + body);
 										var userList = JSON.parse(body).users;
+										console.log("userList: " + userList);
 										userList.length = Math.min(userList.length,15);
 										async.forEachOf(userList, function (value2, key2, callback2) {
 											// console.log('  Inside Processing: ' + value2 + ", key: " + key2);
