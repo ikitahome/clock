@@ -127,11 +127,14 @@ const make8x8ImageBufferWith4Colors = worldid=>{
 
 							async.forEachOf(userList, function (value, key, callback) {
 								
-								if ((avatarImg.indexOf(value.currentAvatarImageUrl) > 0 ) && (foundUsers.length < 60)){
+								if (((value.tags) && (((value.tags.indexOf("system_trust_trusted")) > 0) || ((value.tags.indexOf("system_trust_veteran")) > 0))) && (avatarImg.indexOf(value.currentAvatarImageUrl) > 0 ) && (foundUsers.length < 60)){
 									console.log(value.displayName);
 									foundUsers.push({name: value.displayName, img: value.currentAvatarThumbnailImageUrl});
-								}
-								// console.log(value.currentAvatarImageUrl);
+								};
+								// if ((value.tags) && (value.tags.indexOf("system_trust_trusted")) > 0) {
+									// console.log(value.tags.indexOf("system_trust_trusted"));
+								// };
+								
 								callback();
 							}, function (err) {
 								console.log('User list ' + value1.toString() + ' have been processed successfully');
