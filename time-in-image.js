@@ -170,7 +170,7 @@ const make8x8ImageBufferWith4Colors = worldid=>{
 						async.forEachOf(foundUsers, function (value2, key2, callback2) {
 							var name = value2.name;
 							var pic = value2.img;
-							image.print(font, 0+Math.floor(key2/12) *(120) + 18, 10+(key2%12)*16, name);
+							image.print(font, 0+Math.floor(key2/12) *(120) + 18, 0+(key2%12)*19, name);
 							console.log(name);
 							fs.appendFile("temp.txt", name + ":::" + pic + "\r\n", (err) => {
 								if (err) console.log(err);
@@ -195,7 +195,7 @@ const make8x8ImageBufferWith4Colors = worldid=>{
 												.quality(60); // set JPEG quality
 												// console.log("written"); //picture path
 												
-											  image.composite(lenna, 0+Math.floor(key2/12) *(120), 10+(key2%12)*16, {
+											  image.composite(lenna, 0+Math.floor(key2/12) *(120), 0+(key2%12)*19, {
 													mode: Jimp.BLEND_SOURCE_OVER,
 													opacityDest: 1,
 													opacitySource: 1
