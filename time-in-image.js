@@ -154,7 +154,8 @@ const make8x8ImageBufferWith4Colors = worldid=>{
 					
 					
 					lineReader.eachLine('temp.txt', function(line) {
-						if (foundUsers.length < 60) {
+						var repeatCheck = {name: line.split(":::")[0], img: line.split(":::")[1]}
+						if ((foundUsers.length < 60) && !(foundUsers.includes(repeatCheck))) {
 							console.log("reading");
 							foundUsers.push({name: line.split(":::")[0], img: line.split(":::")[1]});
 						};
