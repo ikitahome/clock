@@ -115,31 +115,40 @@ const make8x8ImageBufferWith4Colors = worldid=>{
 							}
 						},
 						function (error, response, body) {
-							// console.log("response.header");
-							// console.log(response.headers)
-							// console.log(error)
+							console.log(user1 + "response.header" + response.headers)
+							console.log(user1 + "error" + error)
+							console.log(user1 + "body" + body)
 							// console.log(JSON.parse(body));
 							
-							var userList = JSON.parse(body);
-							// console.log(userList);
-							// if .indexOf(users.currentAvatarImageUrl)
+							if (body.search("Cloudflare")){
+								console.log('Hit by cloudflare');
+								callbackCount();
+							}else{
+								var userList = JSON.parse(body);
+								// console.log(userList);
+								// if .indexOf(users.currentAvatarImageUrl)
+								
+
+								async.forEachOf(userList, function (value, key, callback) {
+									
+									if (((value.tags) && (((value.tags.indexOf("system_trust_trusted")) > 0) || ((value.tags.indexOf("system_trust_veteran")) > 0))) && (avatarImg.indexOf(value.currentAvatarImageUrl) > 0 ) && (foundUsers.length < 60)){
+										console.log(value.displayName);
+										foundUsers.push({name: value.displayName, img: value.currentAvatarThumbnailImageUrl});
+									};
+									// if ((value.tags) && (value.tags.indexOf("system_trust_trusted")) > 0) {
+										// console.log(value.tags.indexOf("system_trust_trusted"));
+									// };
+									
+									callback();
+								}, function (err) {
+									console.log('User list ' + value1.toString() + ' have been processed successfully');
+									callbackCount();
+								});
+							};
+							
+							
 							
 
-							async.forEachOf(userList, function (value, key, callback) {
-								
-								if (((value.tags) && (((value.tags.indexOf("system_trust_trusted")) > 0) || ((value.tags.indexOf("system_trust_veteran")) > 0))) && (avatarImg.indexOf(value.currentAvatarImageUrl) > 0 ) && (foundUsers.length < 60)){
-									console.log(value.displayName);
-									foundUsers.push({name: value.displayName, img: value.currentAvatarThumbnailImageUrl});
-								};
-								// if ((value.tags) && (value.tags.indexOf("system_trust_trusted")) > 0) {
-									// console.log(value.tags.indexOf("system_trust_trusted"));
-								// };
-								
-								callback();
-							}, function (err) {
-								console.log('User list ' + value1.toString() + ' have been processed successfully');
-								callbackCount();
-							});
 							
 
 
@@ -154,7 +163,7 @@ const make8x8ImageBufferWith4Colors = worldid=>{
 					
 					
 					lineReader.eachLine('temp.txt', function(line) {
-						var repeatCheck = {name: line.split(":::")[0], img: line.split(":::")[1]}
+						var repeatCheck = {name: line.split(":::")[0], img: line.split(":::")[1]};
 						if ((foundUsers.length < 60) && !(foundUsers.includes(repeatCheck))) {
 							console.log("reading");
 							foundUsers.push({name: line.split(":::")[0], img: line.split(":::")[1]});
