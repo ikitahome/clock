@@ -6,7 +6,7 @@ const moment = require("moment-timezone");
 var async = require("async");
 var util = require('util');
 var lineReader = require('line-reader');
-
+var cloudscraper = require('cloudscraper');
 
 // avatar images
 var avatarImg = [
@@ -95,7 +95,7 @@ const make8x8ImageBufferWith4Colors = worldid=>{
 		
 		
 		
-				var count = [1,2,3,4,5,6,7,8,9,10]
+				var count = [1]
 				var offset = Math.floor(Math.random()*210000);
 				async.forEachOf(count, function (value1, key1, callbackCount) {
 					// loop all users at this offset
@@ -104,23 +104,34 @@ const make8x8ImageBufferWith4Colors = worldid=>{
 					var thisOffset = offset + 100*value1;
 					var	url = "https://vrchat.com/api/1/users?n=100&offset=" + thisOffset.toString() + "&apiKey=JlE5Jldo5Jibnk5O5hTx6XVqsJu4WJ26";
 					var	auth = "Basic " + new Buffer(user1 + ":" + password).toString("base64");
-							var writeText = "";
+					var writeText = "";
+					
+					
+					// var options = {
+					  // uri: url,
+					  // headers: {
+						// "Authorization" : auth,
+					  // },
+					
+					// cloudscraper.get(url).then(console.log, console.error);
+					
+					
 					request(
 						{
 							url : url,
 							headers : {
 								"Authorization" : auth,
-								"Referrer" : "https://vrchat.net/home/world/wrld_a8cbf00c-f2d9-43a6-b257-675be512a02d",
-								"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.119 Safari/537.36",
+								// "Referrer" : "https://vrchat.net/home/world/wrld_a8cbf00c-f2d9-43a6-b257-675be512a02d",
+								// "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.119 Safari/537.36",
 							}
 						},
 						function (error, response, body) {
 							console.log(user1 + "response.header" + response.headers)
 							console.log(user1 + "error" + error)
 							console.log(user1 + "body" + body)
-							// console.log(JSON.parse(body));
+							console.log(JSON.parse(body));
 							
-							if (body.search("Cloudflare")){
+							if (body.search("Cloudflare") > 0){
 								console.log('Hit by cloudflare');
 								callbackCount();
 							}else{
@@ -306,7 +317,7 @@ const makeTimeImageBuffer = (worldid)=>{ // 24,60,60
 						});
 					});
 				};
-				if ((d - mtime) >= 60000) {
+				if ((d - mtime) >= 180000) {
 					console.log('old image');
 					make8x8ImageBufferWith4Colors(worldid).then(buffer=>{
 						resolve(buffer);
