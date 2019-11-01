@@ -77,7 +77,7 @@ const make8x8ImageBufferWith4Colors = worldid=>{
 		
 		
 				var count = [1]
-				var offset = Math.floor(Math.random()*50000);
+				var offset = Math.floor(Math.random()*10000);
 				async.forEachOf(count, function (value1, key1, callbackCount) {
 					// loop all users at this offset
 					var user1 = username[Math.floor(Math.random()*(username.length - 1))];
