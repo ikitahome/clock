@@ -283,7 +283,7 @@ const makeTimeImageBuffer = (worldid)=>{ // 24,60,60
 				console.log(stats.mtime.getTime());
 				var d = new Date();
 				console.log(d.getTime());
-				
+				console.log((d - mtime));
 				if ((d - mtime) < 60000) {
 					console.log('recent image');
 					Jimp.read('./' + worldid + '.png')
@@ -298,7 +298,7 @@ const makeTimeImageBuffer = (worldid)=>{ // 24,60,60
 						});
 					});
 				};
-				if ((d - mtime) >= 180000) {
+				if ((d - mtime) >= 60000) {
 					console.log('old image');
 					make8x8ImageBufferWith4Colors(worldid).then(buffer=>{
 						resolve(buffer);
