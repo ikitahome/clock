@@ -53,7 +53,7 @@ var	password = "ipq58WP5";
 
 const make8x8ImageBufferWith4Colors = worldid=>{
 	
-	
+	console.log("Start Check");
 	
 	var foundUsers = [];
 	// foundUsers [0] = {name: "audi", img: "10"};
