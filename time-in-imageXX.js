@@ -340,7 +340,7 @@ const TimeInImageXX = function (app,path) {
 
 			try {
 				console.log("ip: " + ipAddr);
-				// console.log(body);
+				console.log(body);
 				console.log(body.split("Coordinates")[1].split("</span>")[1].split(">")[1].split(",")[0]);
 				console.log(body.split("Coordinates")[1].split("</span>")[1].split(">")[1].split(",")[1]);
 				// console.log(body.split["Longitude"][0])
