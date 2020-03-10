@@ -328,10 +328,45 @@ const TimeInImageXX = function (app,path) {
 		
 		
 		
+		// request.post({
+			// url: "https://ipinfo.io",
+			// form: { ip: ipAddr },
+			// headers: { referer: "https://ipinfo.io" }
+		// }, (err,_,body)=>{
+			// if (err) {
+				// console.log("errpr: " + err);
+				// return res.send();
+			// }
+
+			// try {
+				// console.log("ip: " + ipAddr);
+				// console.log(body);
+				// console.log(body.split("Coordinates")[1].split("</span>")[1].split(">")[1].split(",")[0]);
+				// console.log(body.split("Coordinates")[1].split("</span>")[1].split(">")[1].split(",")[1]);
+
+
+				// let tz = tzlookup(
+					// body.split("Coordinates")[1].split("</span>")[1].split(">")[1].split(",")[0],
+					// body.split("Coordinates")[1].split("</span>")[1].split(">")[1].split(",")[1]
+				// );
+				// console.log("tz: " + tz);
+
+
+				// let time = moment().tz(tz).format("HH:mm:ss")
+					// .split(":").map(x=>parseInt(x));
+
+				// makeTimeImageBufferXX(time).then(buffer=>{
+					// res.end(buffer);
+				// });
+			// } catch(err) {
+				// console.log(err);
+				// res.send();
+			// }
+		// });
+		
 		request.post({
-			url: "https://ipinfo.io",
-			form: { ip: ipAddr },
-			headers: { referer: "https://ipinfo.io" }
+			url: "https://db-ip.com/" + ipAddr,
+			headers: { referer: "https://db-ip.com" }
 		}, (err,_,body)=>{
 			if (err) {
 				console.log("errpr: " + err);
@@ -340,9 +375,9 @@ const TimeInImageXX = function (app,path) {
 
 			try {
 				console.log("ip: " + ipAddr);
-				console.log(body);
-				console.log(body.split("Coordinates")[1].split("</span>")[1].split(">")[1].split(",")[0]);
-				console.log(body.split("Coordinates")[1].split("</span>")[1].split(">")[1].split(",")[1]);
+				// console.log(body);
+				// console.log(body.split("Timezone")[1].split("</span>")[1].split(">")[1].split(",")[0]);
+				// console.log(body.split("Coordinates")[1].split("</span>")[1].split(">")[1].split(",")[1]);
 				// console.log(body.split["Longitude"][0])
 				
 				
@@ -351,10 +386,11 @@ const TimeInImageXX = function (app,path) {
 					// .split("ipinfo.io</a>")[1].split("</table>")[0]
 					// .split("<tr>")[4].split("<td>");
 
-				let tz = tzlookup(
-					body.split("Coordinates")[1].split("</span>")[1].split(">")[1].split(",")[0],
-					body.split("Coordinates")[1].split("</span>")[1].split(">")[1].split(",")[1]
-				);
+				// let tz = tzlookup(
+					// body.split("Coordinates")[1].split("</span>")[1].split(">")[1].split(",")[0],
+					// body.split("Coordinates")[1].split("</span>")[1].split(">")[1].split(",")[1]
+				// );
+				let tz = body.split('Timezone</th><td>')[1].split(' ')[0]
 				console.log("tz: " + tz);
 				// cachedTzs[ip] = tz;
 
@@ -369,6 +405,12 @@ const TimeInImageXX = function (app,path) {
 				res.send();
 			}
 		});
+		
+		
+		
+		
+		
+		
 	});
 
 	app.get(path, (req,res)=>{
